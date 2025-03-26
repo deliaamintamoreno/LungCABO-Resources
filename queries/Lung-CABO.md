@@ -110,7 +110,7 @@ PREFIX sio: <http://semanticscience.org/resource/>
 PREFIX bao: <http://www.bioassayontology.org/bao#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX LUCIA: <https://w3id.org/LUCIA/sem-lucia#>
+PREFIX CABO: <https://w3id.org/LUCIA/sem-lucia#>
 PREFIX mesh: <http://phenomebrowser.net/ontologies/mesh/mesh.owl#>
 PREFIX OBO: <http://purl.obolibrary.org/obo/>
 PREFIX geno: <http://purl.obolibrary.org/obo/>
@@ -142,7 +142,7 @@ WHERE {
   }
 
   OPTIONAL {
-    ?variant LUCIA:dbsnp_id ?dbsnp_id .
+    ?variant CABO:dbsnp_id ?dbsnp_id .
   }
 
   # Chromosomal location
@@ -181,30 +181,141 @@ Of the genes involved in Non-small cell lung cancer and small cell lung cancer, 
 ## Lung-CABO5
 Which object property defines the relationship between a variant and a disease?
 ```Sparql
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX ncit: <http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#>
+PREFIX sio: <http://semanticscience.org/resource/>
+PREFIX bao: <http://www.bioassayontology.org/bao#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX mesh: <http://phenomebrowser.net/ontologies/mesh/mesh.owl#>
+PREFIX OBO: <http://purl.obolibrary.org/obo/>
+ 
+SELECT DISTINCT ?association_type
+WHERE {
+  ?assoc a ?association_type ;
+         sio:SIO_000628 ?variant ;
+         sio:SIO_000628 ?disease .
+  ?variant a OBO:SO_0001060 .
+  ?disease a ncit:C7057 .
+}
 ```
 ![Q5 Answer](../results/Q5_Answer.png)
 *Figure 5: Example gene fusions associated with more than one lung cancer subtype (partial view of results).*
 ## Lung-CABO6
-Which semantic type is used to classify a disease in Lung-CABO throught the asociated genes?
+Which semantic type is used to classify a disease in Lung-CABO?
 ```Sparql
+Q7: PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX ncit: <http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#>
+PREFIX sio: <http://semanticscience.org/resource/>
+PREFIX bao: <http://www.bioassayontology.org/bao#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX mesh: <http://phenomebrowser.net/ontologies/mesh/mesh.owl#>
+PREFIX OBO: <http://purl.obolibrary.org/obo/>
+ 
+SELECT distinct ?disease ?semanticType 
+WHERE {
+  ?disease a ncit:C7057 ;
+          sio:SIO_000008 ?semanticTypeIRI .
+?semanticTypeIRI a ncit:C43817;
+rdfs:label ?semanticType.
+}
 ```
 ![Q6 Answer](../results/Q6_Answer.png)
 *Figure 6: Example gene fusions associated with more than one lung cancer subtype (partial view of results).*
 ## Lung-CABO7
-How many pathways are associated with a specific lung cancer subtype?
+How many pathways are associated with a specific lung cancer subtype (Small Cell Lung Cancer)  throught the asociated genes?
 ```Sparql
+PREFIX rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX ncit:   <http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#>
+PREFIX sio:    <http://semanticscience.org/resource/>
+PREFIX bao:    <http://www.bioassayontology.org/bao#>
+PREFIX dcterms:<http://purl.org/dc/terms/>
+PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX CABO:  <https://w3id.org/LUCIA/sem-lucia#>
+PREFIX mesh:   <http://phenomebrowser.net/ontologies/mesh/mesh.owl#>
+
+SELECT (COUNT(DISTINCT ?pathwayId) AS ?pathwayCount)
+WHERE {
+  # Gene–disease association
+  ?gda a sio:SIO_000983 ;
+       sio:SIO_000628 ?gene, ?disease ;
+       dcterms:identifier ?gdaId .
+
+  # Gene information
+  ?gene a ncit:C16612 ;
+        dcterms:identifier ?geneId ;
+        rdfs:label ?geneLabel ;
+        sio:SIO_000068 ?pathway ;
+        sio:SIO_000205 ?geneSymbolIRI .
+
+  # Pathway information
+  ?pathway a CABO:Pathway ;
+           dcterms:identifier ?pathwayId ;
+           rdfs:label ?pathwayLabel .
+
+  # Disease information (Small cell lung cancer)
+  ?disease a ncit:C7057 ;
+           dcterms:identifier ?diseaseCUI ;
+           rdfs:label ?diseaseLabel ;
+           bao:BAO_0090007 ?organismIRI .
+
+  FILTER(?diseaseCUI = "C0149925")
+}
+
+
 ```
 ![Q7 Answer](../results/Q7_Answer.png)
 *Figure 7: Example gene fusions associated with more than one lung cancer subtype (partial view of results).*
 ## Lung-CABO8
 What is the parent class and external alignment of a given disease in Lung-CABO?
 ```Sparql
+PREFIX obo:   <http://purl.obolibrary.org/obo/>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX skos:  <http://www.w3.org/2004/02/skos/core#>
+
+SELECT ?diseaseId ?diseaseLabel ?parentClass ?parentLabel ?parentId 
+WHERE {
+  # Disease instance 
+  <http://medal.ctb.upm.es/projects/LUCIA/res/sem-lucia#disease/C0149782> 
+    rdfs:type ?type ;
+    dcterms:identifier ?diseaseId ;
+    rdfs:label ?diseaseLabel .
+
+  # Retrieve parent class of the disease type
+  ?type rdfs:subClassOf ?parentClass .
+  ?parentClass rdfs:label ?parentLabel ;
+               dcterms:identifier ?parentId .
+}
+
 ```
 ![Q8 Answer](../results/Q8_Answer.png)
 *Figure 8: Example gene fusions associated with more than one lung cancer subtype (partial view of results).*
 ## Lung-CABO9
-Which genes do not have an associated PSI?
+Which genes do not have an associated DPI?
 ```Sparql
+PREFIX obo:   <http://purl.obolibrary.org/obo/>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX ncit:  <http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#>
+PREFIX sio:   <http://semanticscience.org/resource/>
+
+SELECT DISTINCT ?geneLabel
+WHERE {
+  # Select all genes with their labels
+  ?gene a ncit:C16612 ;
+        rdfs:label ?geneLabel .
+
+  # Optional DPI association
+  OPTIONAL {
+    ?gene sio:SIO_000216 ?dpi .
+    ?dpi a sio:SIO_001352 .
+  }
+}
+GROUP BY ?gene ?geneLabel
+HAVING (COUNT(?dpi) = 0)
+
 ```
 ![Q9 Answer](../results/Q9_Answer.png)
 *Figure 9: Example gene fusions associated with more than one lung cancer subtype (partial view of results).*
