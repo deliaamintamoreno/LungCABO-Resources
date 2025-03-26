@@ -148,8 +148,10 @@ Are fusion genes represented with their partner genes?
 ## Lung-CABO12
 Are genomic variants annotated with their chromosomal position and alleles?
 
-![Q12 Answer](../results/Q13_Answer.png)
-*Figure 13: Example gene fusions associated with more than one lung cancer subtype (partial view of results).*
+![Q12 Answer](../results/Q12_Answer.png)
+*Figure 12: Example gene fusions associated with more than one lung cancer subtype (partial view of results).*
 ## Lung-CABO13
 What is the score or evidence index associated with a gene-disease association?
+![Q13 Answer](../results/Q13_Answer.png)
+*Figure 13: Example gene fusions associated with more than one lung cancer subtype (partial view of results).*
 
