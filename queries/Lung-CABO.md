@@ -356,19 +356,110 @@ HAVING (COUNT(?variant) > 1)
 ## Lung-CABO11
 Are fusion genes represented with their partner genes?
 ```Sparql
+PREFIX rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX ncit:   <http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#>
+PREFIX sio:    <http://semanticscience.org/resource/>
+PREFIX bao:    <http://www.bioassayontology.org/bao#>
+PREFIX dcterms:<http://purl.org/dc/terms/>
+PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX mesh:   <http://phenomebrowser.net/ontologies/mesh/mesh.owl#>
+
+SELECT DISTINCT
+  ?diseaseCUI
+  ?diseaseLabel
+  ?organismId
+  ?organismLabel
+  ?geneFusionLabel
+  ?geneSymbol
+  ?geneLabel
+WHERE {
+  # Gene-disease association
+  ?gda sio:SIO_000628 ?gene, ?disease ;
+       dcterms:identifier ?gdaId .
+
+  # Gene information
+  ?gene rdf:type ncit:C16612 ;
+        dcterms:identifier ?geneId ;
+        rdfs:label ?geneLabel ;
+        sio:SIO_000205 ?geneSymbolIRI .
+
+  # Gene symbol
+  ?geneSymbolIRI a ncit:C43568 ;
+                 dcterms:identifier ?geneSymbol .
+
+  # Disease information
+  ?disease rdf:type ncit:C7057 ;
+           dcterms:identifier ?diseaseCUI ;
+           rdfs:label ?diseaseLabel ;
+           bao:BAO_0090007 ?organismIRI .
+
+  # Organism information
+  ?organismIRI rdf:type ncit:C14250 ;
+               dcterms:identifier ?organismId ;
+               rdfs:label ?organismLabel .
+
+  # Gene fusion via biomarker/gene alteration path
+  ?biomarker rdfs:subClassOf ?gda .
+  ?geneAlteration rdfs:subClassOf ?biomarker ;
+                  sio:SIO_000008 ?geneFusion .
+
+  ?geneFusion rdf:type sio:SIO_001348 ;
+              dcterms:identifier ?geneFusionId ;
+              rdfs:label ?geneFusionLabel .
+}
+ORDER BY ?geneFusionLabel
 ```
 ![Q11 Answer](../results/Q11_Answer.png)
 *Figure 11: Example gene fusions associated with more than one lung cancer subtype (partial view of results).*
 ## Lung-CABO12
-Are genomic variants annotated with their chromosomal position and alleles?
+What is the evidence index associated with a gene-disease association?
 ```Sparql
+PREFIX rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX ncit:   <http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#>
+PREFIX sio:    <http://semanticscience.org/resource/>
+PREFIX bao:    <http://www.bioassayontology.org/bao#>
+PREFIX dcterms:<http://purl.org/dc/terms/>
+PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX mesh:   <http://phenomebrowser.net/ontologies/mesh/mesh.owl#>
+PREFIX CABO:   <https://w3id.org/LUCIA/sem-lucia#>
+
+SELECT DISTINCT 
+  ?evidenceIndex
+  ?geneID 
+  ?geneLabel 
+  ?geneSymbol 
+  ?diseaseID 
+  ?diseaseLabel 
+WHERE {
+  # Gene–disease association
+  ?gda a sio:SIO_000983 ;                     # GDA instance
+       sio:SIO_000628 ?gene, ?disease ;       # Links gene and disease
+       sio:SIO_000216 ?evidenceIndexIRI ;     # Optional link to evidence score
+       dcterms:identifier ?gdaID .
+
+  # Evidence Index value
+    ?evidenceIndexIRI a CABO:Evidence_Index ;
+                      sio:SIO_000300 ?evidenceIndex .
+
+  # Gene information
+  ?gene a ncit:C16612 ;
+        dcterms:identifier ?geneID ;
+        rdfs:label ?geneLabel ;
+        sio:SIO_010078 ?proteinIRI ;          # Encodes a protein
+        sio:SIO_000205 ?geneSymbolIRI .       # Links to gene symbol
+
+  # Gene symbol
+  ?geneSymbolIRI a ncit:C43568 ;
+                 dcterms:identifier ?geneSymbol .
+
+  # Disease information
+  ?disease a ncit:C7057 ;
+           dcterms:identifier ?diseaseID ;
+           rdfs:label ?diseaseLabel ;
+           bao:BAO_0090007 ?organismIRI .
+}
+
 ```
 ![Q12 Answer](../results/Q12_Answer.png)
-*Figure 12: Example gene fusions associated with more than one lung cancer subtype (partial view of results).*
-## Lung-CABO13
-What is the score or evidence index associated with a gene-disease association?
-```Sparql
-```
-![Q13 Answer](../results/Q13_Answer.png)
 *Figure 13: Example gene fusions associated with more than one lung cancer subtype (partial view of results).*
 
