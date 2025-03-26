@@ -46,6 +46,7 @@ GROUP BY ?geneFusionLabel
 HAVING (COUNT(DISTINCT ?diseaseLabel) > 1)
 
  ```
+![Q1: Answer](results/Q1_Answer.png)
 
 ## Lung-CABO2
 What level of confidence is there in the genes described in lung cancer?
