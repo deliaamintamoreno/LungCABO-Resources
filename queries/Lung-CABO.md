@@ -100,7 +100,7 @@ WHERE {
 
 ```
 ![Q2 Answer](../results/Q2_Answer.png)
-*Figure 2: Example gene fusions associated with more than one lung cancer subtype (partial view of results).*
+*Figure 2: Confidence levels of genes associated with lung cancer based on Z-score evidence (partial view of results).*
 ## Lung-CABO3
 Can we determine the chromosomal positions of the gene variants described in lung cancer?
 ![Q3 Answer](../results/Q3_Answer.png)
