@@ -322,6 +322,34 @@ HAVING (COUNT(?dpi) = 0)
 ## Lung-CABO10
 Can a given gene be associated with more than two variant?
 ```Sparql
+PREFIX rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX ncit:   <http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#>
+PREFIX sio:    <http://semanticscience.org/resource/>
+PREFIX bao:    <http://www.bioassayontology.org/bao#>
+PREFIX dcterms:<http://purl.org/dc/terms/>
+PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX mesh:   <http://phenomebrowser.net/ontologies/mesh/mesh.owl#>
+PREFIX obo:    <http://purl.obolibrary.org/obo/>
+
+SELECT ?geneId ?geneLabel ?geneSymbol (COUNT(?variant) AS ?numVariants)
+WHERE {
+  # Variant information and associated gene
+  ?variant a obo:SO_0001060 ;
+           sio:SIO_001403 ?gene ;
+           dcterms:identifier ?variantId .
+
+  # Gene information
+  ?gene a ncit:C16612 ;
+        dcterms:identifier ?geneId ;
+        rdfs:label ?geneLabel ;
+        sio:SIO_000205 ?geneSymbolIRI .
+
+  # Gene symbol
+  ?geneSymbolIRI a ncit:C43568 ;
+                 dcterms:identifier ?geneSymbol .
+}
+GROUP BY ?geneId ?geneLabel ?geneSymbol
+HAVING (COUNT(?variant) > 1)
 ```
 ![Q10 Answer](../results/Q10_Answer.png)
 *Figure 10: Example gene fusions associated with more than one lung cancer subtype (partial view of results).*
