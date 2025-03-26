@@ -1,15 +1,50 @@
 # SPARQL queries for Lung-CABO-KG competency questions
 
-Here we include the 13 SPARQL queries for each of the competency questions designed to validate EBOCA-KG, SEM-DISNET module.
+Here we include the 13 SPARQL queries for each of the competency questions designed to validate for Lung-CABO.
 
 
 ## Lung-CABO1
  Can we identify patterns of gene fusions that are shared across different types of pathologies?
  ```Sparql
-PREFIX obo:<http://purl.obolibrary.org/obo/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX ncit: <http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#>
+PREFIX sio: <http://semanticscience.org/resource/>
+PREFIX bao: <http://www.bioassayontology.org/bao#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX mesh: <http://phenomebrowser.net/ontologies/mesh/mesh.owl#>
 
-SELECT ?definition
-WHERE {obo:SO_0001060 obo:IAO_0000115 ?definition}
+SELECT ?geneFusionLabel 
+       (GROUP_CONCAT(DISTINCT ?diseaseLabel; SEPARATOR=", ") AS ?associatedDiseases)
+WHERE {
+  # Gene-Disease Association
+  ?gda sio:SIO_000628 ?gene, ?disease ;
+       dcterms:identifier ?gdaId .
+
+  # Disease information
+  ?disease rdf:type ncit:C7057 ;
+           dcterms:identifier ?diseaseId ;
+           rdfs:label ?diseaseLabel ;
+           bao:BAO_0090007 ?organismIRI .
+
+  # Organism information
+  ?organismIRI rdf:type ncit:C14250 ;
+               dcterms:identifier ?organismId ;
+               rdfs:label ?organismLabel .
+
+  # Gene fusion path: GDA → biomarker → gene alteration → gene fusion
+  ?biomarker rdfs:subClassOf ?gda .
+  ?geneAlteration rdfs:subClassOf ?biomarker ;
+                  sio:SIO_000008 ?geneFusion .
+
+  # Gene Fusion entity
+  ?geneFusion rdf:type sio:SIO_001348 ;
+              dcterms:identifier ?geneFusionId ;
+              rdfs:label ?geneFusionLabel .
+}
+GROUP BY ?geneFusionLabel
+HAVING (COUNT(DISTINCT ?diseaseLabel) > 1)
+
  ```
 
 ## Lung-CABO2
