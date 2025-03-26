@@ -46,7 +46,9 @@ GROUP BY ?geneFusionLabel
 HAVING (COUNT(DISTINCT ?diseaseLabel) > 1)
 
  ```
-![Q1 Answer](results/Q1_Answer.png)
+![Q1 Answer](../results/Q1_Answer.png)
+*Figure 1: Example gene fusions associated with more than one lung cancer subtype (partial view of results).*
+
 
 ## Lung-CABO2
 What level of confidence is there in the genes described in lung cancer?
