@@ -1,6 +1,6 @@
 # SPARQL queries for Lung-CABO-KG competency questions
 
-Here we include the 13 SPARQL queries for each of the competency questions designed to validate for Lung-CABO.
+Here we include the 12 SPARQL queries for each of the competency questions designed to validate for Lung-CABO.
 
 
 ## Lung-CABO1
