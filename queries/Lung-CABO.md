@@ -175,6 +175,39 @@ WHERE {
 ## Lung-CABO4
 Of the genes involved in Non-small cell lung cancer and small cell lung cancer, what pathways do they share?
 ```Sparql
+PREFIX rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX ncit:   <http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#>
+PREFIX sio:    <http://semanticscience.org/resource/>
+PREFIX dcterms:<http://purl.org/dc/terms/>
+PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX CABO:   <https://w3id.org/LUCIA/sem-lucia#>
+
+SELECT DISTINCT ?pathwayId ?pathwayLabel (COUNT(DISTINCT ?gene) AS ?sharedGeneCount)
+WHERE {
+  # Step 1: Subquery to find genes associated with both diseases
+  {
+    SELECT ?gene
+    WHERE {
+      ?gda a sio:SIO_000983 ;
+           sio:SIO_000628 ?gene ;
+           sio:SIO_000628 ?disease .
+      ?disease dcterms:identifier ?cui .
+      FILTER(?cui IN ("C0007131", "C0149925"))
+    }
+    GROUP BY ?gene
+    HAVING (COUNT(DISTINCT ?cui) = 2)
+  }
+
+  # Step 2: Get pathways for those genes
+  ?gene sio:SIO_000068 ?pathway .
+  ?pathway a CABO:Pathway ;
+           dcterms:identifier ?pathwayId ;
+           rdfs:label ?pathwayLabel .
+}
+GROUP BY ?pathwayId ?pathwayLabel
+ORDER BY DESC(?sharedGeneCount)
+
+
 ```
 ![Q4 Answer](../results/Q4_Answer.png)
 *Figure 4: Example gene fusions associated with more than one lung cancer subtype (partial view of results).*
