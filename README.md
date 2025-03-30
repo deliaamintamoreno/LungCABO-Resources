@@ -50,9 +50,9 @@ If you would like to collaborate on future versions or extensions of Lung-CABO, 
 
 - Delia Aminta Moreno Perdomo
 - Paloma Tejera Nevado
+- Lucía Prieto Santamaría
 - Guillermo Vigueras
 - Antonio Díaz
-- Lucía Prieto Santamaría
 - Alejandro Rodríguez González
 
 **MEDAL - LUCIA Project**
