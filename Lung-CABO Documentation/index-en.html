@@ -1,0 +1,1935 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="resources/primer.css" media="screen"/>
+<link rel="stylesheet" href="resources/rec.css" media="screen"/>
+<link rel="stylesheet" href="resources/extra.css" media="screen"/>
+<link rel="stylesheet" href="resources/owl.css" media="screen"/>
+<link rel="stylesheet" href="resources/dark.css" media="(prefers-color-scheme: dark)"/>
+<link rel="stylesheet" href="resources/light.css" media="(prefers-color-scheme: light)"/>
+<link rel="stylesheet" href="resources/slider.css" media="screen"/>
+<meta name="color-scheme" content="dark light">
+<script type="module" src="resources/dark-mode-toggle.mjs"></script><div class="darkmode">
+	<dark-mode-toggle class="slider"></dark-mode-toggle>
+</div>
+ <title>Lung-CABO</title>
+
+
+<!-- SCHEMA.ORG METADATA -->
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","url":"https://w3id.org/LUCIA/sem-lucia","image":"http://vowl.visualdataweb.org/webvowl/#iri=https://w3id.org/LUCIA/sem-lucia","name":"Lung-CABO", "headline":"Document describing the ontology https://w3id.org/LUCIA/sem-lucia", "dateReleased":"2024-04-01", "license":"http://purl.org/NET/rdflicense/cc-by-nc-sa4.0", "author":[{"@type":"Person","name":"MEDAL: https://medal.ctb.upm.es/"}], 
+"contributor":[{"@type":"Person","name":"Paloma Tejera Nevado (MEDAL)"},
+{"@type":"Person","name":"Delia Aminta Moreno Perdomo (MEDAL)"},
+{"@type":"Person","name":"Lucía Prieto Santamaría (MEDAL)"},
+{"@type":"Person","name":"Guillermo Antonio Vigueras Gonzalez (MEDAL)"},
+{"@type":"Person","name":"Antonio Jesus Díaz Honrubia (MEDAL)"},
+{"@type":"Person","name":"Alejandro Rodríguez González (MEDAL)"}]}</script>
+<script src="resources/jquery.js"></script> 
+<script src="resources/marked.min.js"></script> 
+    <script> 
+function loadHash() {
+  jQuery(".markdown").each(function(el){jQuery(this).after(marked.parse(jQuery(this).text())).remove()});
+	var hash = location.hash;
+	if($(hash).offset()!=null){
+	  $('html, body').animate({scrollTop: $(hash).offset().top}, 0);
+}
+	loadTOC();
+}
+function loadTOC(){
+	//process toc dynamically
+	  var t='<h2>Table of contents</h2><ul>';i = 1;j=0;
+	  jQuery(".list").each(function(){
+		if(jQuery(this).is('h2')){
+			if(j>0){
+				t+='</ul>';
+				j=0;
+			}
+			t+= '<li>'+i+'. <a href=#'+ jQuery(this).attr('id')+'>'+ jQuery(this).ignore("span").text()+'</a></li>';
+			i++;
+		}
+		if(jQuery(this).is('h3')){
+			if(j==0){
+				t+='<ul>';
+			}
+			j++;
+			t+= '<li>'+(i-1)+'.'+j+'. '+'<a href=#'+ jQuery(this).attr('id')+'>'+ jQuery(this).ignore("span").text()+'</a></li>';
+		}
+	  });
+	  t+='</ul>';
+	  $("#toc").html(t); 
+}
+$(function(){
+    loadHash();
+}); $.fn.ignore = function(sel){
+        return this.clone().find(sel||">*").remove().end();
+ }; 
+   </script> 
+  </head> 
+
+<body>
+<div class="container">
+<div class="head">
+<div style="float:right">language <a href="index-en.html"><b>en</b></a> </div>
+<h1>Lung-CABO</h1>
+<h2>Release: 2024-04-01</h2>
+
+
+<dl>
+<dt>Latest version:</dt>
+<dd><a href="https://w3id.org/LUCIA/sem-lucia">https://w3id.org/LUCIA/sem-lucia</a></dd>
+<dt>Authors:</dt>
+<dd>MEDAL: https://medal.ctb.upm.es/</dd>
+
+<dt>Contributors:</dt>
+<dd>Delia Aminta Moreno Perdomo (MEDAL)</dd>
+<dd>Paloma Tejera Nevado (MEDAL)</dd>
+<dd>Lucía Prieto Santamaría (MEDAL)</dd>
+<dd>Guillermo Antonio Vigueras Gonzalez (MEDAL)</dd>
+<dd>Antonio Jesus Díaz Honrubia (MEDAL)</dd>
+<dd>Alejandro Rodríguez González (MEDAL)</dd>
+
+<dt>Download serialization:</dt><dd><span><a href="ontology.jsonld" target="_blank"><img src="https://img.shields.io/badge/Format-JSON_LD-blue.svg" alt="JSON-LD" /></a> </span><span><a href="ontology.owl" target="_blank"><img src="https://img.shields.io/badge/Format-RDF/XML-blue.svg" alt="RDF/XML" /></a> </span><span><a href="ontology.nt" target="_blank"><img src="https://img.shields.io/badge/Format-N_Triples-blue.svg" alt="N-Triples" /></a> </span><span><a href="ontology.ttl" target="_blank"><img src="https://img.shields.io/badge/Format-TTL-blue.svg" alt="TTL" /></a> </span></dd><dt>License:</dt><dd><a href="http://purl.org/NET/rdflicense/cc-by-nc-sa4.0" target="_blank"><img src="https://img.shields.io/badge/License-http://purl.org/NET/rdflicense/cc_by_nc_sa4.0-blue.svg" alt="http://purl.org/NET/rdflicense/cc-by-nc-sa4.0" /></a>
+</dd><dt>Visualization:</dt><dd><a href="webvowl/index.html#" target="_blank"><img src="https://img.shields.io/badge/Visualize_with-WebVowl-blue.svg" alt="Visualize with WebVowl" /></a></dd>
+<!-- <dt>Evaluation:</dt><dd><a href="OOPSevaluation/oopsEval.html#" target="_blank"><img src="https://img.shields.io/badge/Evaluate_with-OOPS! (OntOlogy Pitfall Scanner!)-blue.svg" alt="Evaluate with OOPS!" /></a></dd> --><dt>Cite as:</dt>
+<dd>MEDAL: https://medal.ctb.upm.es/. Lung-CABO.</dd>
+</dl>
+ 
+<hr/>
+<a href="provenance/provenance-en.html" target="_blank">Provenance of this page</a><hr/>
+</div>
+<div class="status">
+<div>
+<span>Ontology Specification Draft</span>
+</div>
+</div>     
+<div id="toc"></div> 
+
+<!--INTRODUCTION SECTION-->
+    <div id="introduction"><h2 id="intro" class="list">Introduction <span class="backlink"> back to <a href="#toc">ToC</a></span></h2>
+<span class="markdown">
+   Lung-CABO is an ontology designed to integrate and structure information on lung cancer, facilitating its analysis in biomedical research. This ontology unifies data from various specialized sources, including
+    <a href="https://mitelmandatabase.isb-cgc.org/">Mitelman</a>,<a href="https://mitelmandatabase.isb-cgc.org/">Mitelman</a>, <a href="https://diseases.jensenlab.org/Downloads">Disease</a>, <a href="https://cancer.sanger.ac.uk/cosmic">COSMIC</a>, <a href="https://disgenet.com/">DisGeNET</a>, <a href="https://www.wikipathways.org/">Wikipathways</a>,databases that provide detailed information on the different subtypes of lung cancer and their multiple associations with:
+
+    Genes involved in lung cancer pathogenesis.
+    Genetic variants.
+    Gene fusions.
+    Chromosomal abnormalities.
+    Pathways.
+  The objective of Lung-CABO is to provide a structured framework that facilitates the discovery of new patterns and associations within this data, contributing to the development of strategies for identifying risk factors associated with lung cancer.
+
+  This project has been carried out within the LUCIA project and <a href="https://medal.ctb.upm.es/">MEDAL Laboratory (Medical
+  Data Analytics)</a> at the <a href="http://www.ctb.upm.es/">CTB-UPM</a>.
+
+</span>
+<div id="namespacedeclarations">
+<h3 id="ns" class="list">Namespace declarations</h3>
+<div id="ns" align="center">
+<table>
+<caption> <a href="#ns"> Table 1</a>: Namespaces used in the document </caption>
+<tbody>
+<tr><td><b>EVS</b></td><td>&lt;http://ncicb.nci.nih.gov/xml/owl/EVS/&gt;</td></tr>
+<tr><td><b>Thesaurus</b></td><td>&lt;http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#&gt;</td></tr>
+<tr><td><b>bao</b></td><td>&lt;http://www.bioassayontology.org/bao#&gt;</td></tr>
+<tr><td><b>bio2rdf_vocabulary</b></td><td>&lt;http://bio2rdf.org/bio2rdf_vocabulary:&gt;</td></tr>
+<tr><td><b>ctd_vocabulary</b></td><td>&lt;http://bio2rdf.org/ctd_vocabulary:&gt;</td></tr>
+<tr><td><b>dc</b></td><td>&lt;http://purl.org/dc/elements/1.1/&gt;</td></tr>
+<tr><td><b>dcat</b></td><td>&lt;http://www.w3.org/ns/dcat#&gt;</td></tr>
+<tr><td><b>dcmitype</b></td><td>&lt;http://purl.org/dc/dcmitype/&gt;</td></tr>
+<tr><td><b>dto</b></td><td>&lt;http://www.drugtargetontology.org/dto/&gt;</td></tr>
+<tr><td><b>efo</b></td><td>&lt;http://www.ebi.ac.uk/efo/&gt;</td></tr>
+<tr><td><b>foaf</b></td><td>&lt;http://xmlns.com/foaf/0.1/&gt;</td></tr>
+<tr><td><b>id</b></td><td>&lt;http://linkedlifedata.com/resource/umls/id/&gt;</td></tr>
+<tr><td><b>CABO</b></td><td>&lt;http://medal.ctb.upm.es/projects/LUCIA/ontologies/sem-lucia#&gt;</td></tr>
+<tr><td><b>mesh</b></td><td>&lt;http://phenomebrowser.net/ontologies/mesh/mesh.owl#&gt;</td></tr>
+<tr><td><b>metadata</b></td><td>&lt;http://data.bioontology.org/metadata/&gt;</td></tr>
+<tr><td><b>obo</b></td><td>&lt;http://purl.obolibrary.org/obo/&gt;</td></tr>
+<tr><td><b>oboInOwl</b></td><td>&lt;http://www.geneontology.org/formats/oboInOwl#&gt;</td></tr>
+<tr><td><b>ogms</b></td><td>&lt;http://purl.obolibrary.org/obo/ogms.owl#&gt;</td></tr>
+<tr><td><b>owl</b></td><td>&lt;http://www.w3.org/2002/07/owl#&gt;</td></tr>
+<tr><td><b>protege</b></td><td>&lt;http://protege.stanford.edu/plugins/owl/protege#&gt;</td></tr>
+<tr><td><b>rdf</b></td><td>&lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;</td></tr>
+<tr><td><b>rdfs</b></td><td>&lt;http://www.w3.org/2000/01/rdf-schema#&gt;</td></tr>
+<tr><td><b>resource</b></td><td>&lt;http://semanticscience.org/resource/&gt;</td></tr>
+<tr><td><b>sem-CABO</b></td><td>&lt;https://w3id.org/LUCIA/sem-lucia#&gt;</td></tr>
+<tr><td><b>skos</b></td><td>&lt;http://www.w3.org/2004/02/skos/core#&gt;</td></tr>
+<tr><td><b>terms</b></td><td>&lt;http://purl.org/dc/terms/&gt;</td></tr>
+<tr><td><b>umlssn</b></td><td>&lt;http://biotop.googlecode.com/svn/trunk/umlssn.owl#&gt;</td></tr>
+<tr><td><b>vann</b></td><td>&lt;http://purl.org/vocab/vann/&gt;</td></tr>
+<tr><td><b>vocab</b></td><td>&lt;https://w3id.org/biolink/vocab/&gt;</td></tr>
+<tr><td><b>void</b></td><td>&lt;http://rdfs.org/ns/void#&gt;</td></tr>
+<tr><td><b>wp</b></td><td>&lt;http://vocabularies.wikipathways.org/wp#&gt;</td></tr>
+<tr><td><b>xml</b></td><td>&lt;http://www.w3.org/XML/1998/namespace&gt;</td></tr>
+<tr><td><b>xsd</b></td><td>&lt;http://www.w3.org/2001/XMLSchema#&gt;</td></tr>
+<tr><td><b>ncit</b></td><td>&lt;http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl&gt;</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+  
+
+<!--OVERVIEW SECTION-->
+    <div id="overview"><h2 id="overv" class="list">Lung-CABO: Overview <span class="backlink"> back to <a href="#toc">ToC</a></span></h2>
+<span class="markdown">
+This ontology has the following classes and properties.</span>
+<h4>Classes</h4>
+<ul xmlns:widoco="https://w3id.org/widoco/vocab#"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    class="hlist">
+   <li>
+      <a href="#http://bio2rdf.org/ctd_vocabulary:Chemical-Disease-Association"
+         title="http://bio2rdf.org/ctd_vocabulary:Chemical-Disease-Association">A CTD association between a chemical and a disease [ctd_vocabulary:Chemical-Disease-Association]</a>
+   </li>
+
+   <li>
+      <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C47902"
+         title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C47902">Article</a>
+   </li>
+   <li><a href="#http://purl.obolibrary.org/obo/GENO_0000152" title="http://purl.obolibrary.org/obo/GENO_0000152">reference</a></li>
+   <li>
+      <a href="#http://semanticscience.org/resource/SIO_000897" title="http://semanticscience.org/resource/SIO_000897">association</a>
+   </li>
+   <li><a href="#http://semanticscience.org/resource/SIO_001121" title="http://semanticscience.org/resource/SIO_001121">Biomarker Association</a></li>
+
+
+   <li>
+      <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C12508"
+         title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C12508">Cell</a>
+   </li>
+
+   <li>
+      <a href="#http://semanticscience.org/resource/SIO_001349" title="http://semanticscience.org/resource/SIO_001349">Chromosomal Rearrangement Association</a>
+   </li>
+   <li>
+      <a href="#http://semanticscience.org/resource/SIO_000899" title="http://semanticscience.org/resource/SIO_000899">chromosome</a>
+   </li>
+   <li>
+      <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C13355"
+         title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C13355">chromosome arm</a>
+   </li>
+
+
+   <li>
+      <a href="#cooccurrencescore"
+         title="https://w3id.org/LUCIA/sem-lucia#cooccurrencescore">
+         <span>cooccurrencescore</span>
+      </a>
+   </li>
+
+   <li>
+      <a href="#http://purl.org/dc/dcmitype/Dataset" title="http://purl.org/dc/dcmitype/Dataset">dctypes:Dataset</a>
+   </li>
+
+   <li>
+      <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C7057"
+         title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C7057">Disease, Disorder or Finding</a>
+   </li>
+
+   <li>
+      <a href="#http://semanticscience.org/resource/SIO_001351" title="http://semanticscience.org/resource/SIO_001351">DisGeNET disease specificity</a>
+   </li>
+   <li>
+      <a href="#http://semanticscience.org/resource/SIO_001352" title="http://semanticscience.org/resource/SIO_001352">DisGeNET Pleiotropy Index</a>
+   </li>
+   <li>
+      <a href="#http://www.w3.org/ns/dcat#Distribution" title="http://www.w3.org/ns/dcat#Distribution">Distribution</a>
+   </li>
+
+   <li>
+      <a href="#http://semanticscience.org/resource/SIO_001394" title="http://semanticscience.org/resource/SIO_001394">Evidence</a>
+   </li>
+   <li>
+      <a href="#Evidence_Index" title="https://w3id.org/LUCIA/sem-lucia#Evidence_Index">Evidence Index</a>
+   </li>
+
+   <li>
+      <a href="#http://semanticscience.org/resource/SIO_001348" title="http://semanticscience.org/resource/SIO_001348">Fusion Gene Association</a>
+   </li>
+   <li>
+      <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C16612"
+         title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C16612">Gene</a>
+   </li>
+   <li>
+      <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C43568"
+         title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C43568">Gene Symbol</a>
+   </li>
+   <li>
+      <a href="#http://semanticscience.org/resource/SIO_000983" title="http://semanticscience.org/resource/SIO_000983">gene-disease association</a>
+   </li>
+   <li>
+      <a href="#http://vocabularies.wikipathways.org/wp#GeneProduct"
+         title="http://vocabularies.wikipathways.org/wp#GeneProduct">GeneProduct</a>
+   </li>
+   <li>
+      <a href="#http://semanticscience.org/resource/SIO_001350" title="http://semanticscience.org/resource/SIO_001350">Genomic Alterations Association</a>
+   </li>
+ 
+   
+   <li>
+      <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#Evidence_Level"
+         title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#Evidence_Level">Level of Evidence</a>
+   </li>
+  
+   <li>
+      <a href="#meankrankscore" title="https://w3id.org/LUCIA/sem-lucia#meankrankscore">Mean Rank Score</a>
+   </li>
+
+   <li>
+      <a href="#http://vocabularies.wikipathways.org/wp#Metabolite"
+         title="http://vocabularies.wikipathways.org/wp#Metabolite">Metabolite</a>
+   </li>
+
+   <li>
+      <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C14250"
+         title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C14250">Organism</a>
+   </li>
+   <li>
+      <a href="#http://vocabularies.wikipathways.org/wp#Pathway" title="http://vocabularies.wikipathways.org/wp#Pathway">Pathway</a>
+   </li>
+   <li>
+      <a href="#PathwayDiseaseAssociation"
+         title="https://w3id.org/LUCIA/sem-lucia#PathwayDiseaseAssociation">Pathway Disease Association</a>
+   </li>
+
+   <li>
+      <a href="#Probability_of_being_loss_of_funtion_intolerant"
+         title="https://w3id.org/LUCIA/sem-lucia#Probability_of_being_loss_of_funtion_intolerant">Probability of being loss of funtion intolerant</a>
+   </li>
+   <li>
+      <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C17021"
+         title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C17021">Protein</a>
+   </li>
+   <li>
+      <a href="#http://purl.obolibrary.org/obo/PR_000000001" title="http://purl.obolibrary.org/obo/PR_000000001">ProteinClass</a>
+   </li>
+   
+   <li>
+      <a href="#http://purl.obolibrary.org/obo/GENO_0000914" title="http://purl.obolibrary.org/obo/GENO_0000914">reference genome</a>
+   </li>
+   
+   <li>
+      <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C25338"
+         title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C25338">Score</a>
+   </li>
+   <li>
+      <a href="#http://semanticscience.org/resource/SIO_000792" title="http://semanticscience.org/resource/SIO_000792">sequence end position</a>
+   </li>
+   <li>
+      <a href="#http://semanticscience.org/resource/SIO_000791" title="http://semanticscience.org/resource/SIO_000791">sequence start position</a>
+   </li>
+   <li>
+      <a href="#http://purl.obolibrary.org/obo/SO_0001060" title="http://purl.obolibrary.org/obo/SO_0001060">sequence_variant</a>
+   </li>
+
+   <li>
+      <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C43817"
+         title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C43817">Unified Medical Language System</a>
+   </li>
+
+   <li>
+      <a href="#http://phenomebrowser.net/ontologies/mesh/mesh.owl#D015854"
+         title="http://phenomebrowser.net/ontologies/mesh/mesh.owl#D015854">Up-Regulation</a>
+   </li>
+   <li>
+      <a href="#http://purl.obolibrary.org/obo/GENO_0000476" title="http://purl.obolibrary.org/obo/GENO_0000476">variant</a>
+   </li>
+
+   <li>
+      <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C68741"
+         title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C68741">zscore</a>
+   </li>
+</ul><h4>Object Properties</h4><ul xmlns:widoco="https://w3id.org/widoco/vocab#"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    class="hlist">
+   <li>
+      <a href="#http://semanticscience.org/resource/SIO_010078" title="http://semanticscience.org/resource/SIO_010078">encodes</a>
+   </li>
+   <li>
+      <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#R41"
+         title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#R41">Gene_Found_In_Organism</a>
+   </li>
+
+   <li>
+      <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#R45"
+         title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#R45">Gene_Product_Has_Organism_Source</a>
+   </li>
+   <li>
+      <a href="#http://semanticscience.org/resource/SIO_000008" title="http://semanticscience.org/resource/SIO_000008">has attribute</a>
+   </li>
+   <li>
+      <a href="#http://semanticscience.org/resource/SIO_000235" title="http://semanticscience.org/resource/SIO_000235">has disposition</a>
+   </li>
+   <li>
+      <a href="#http://semanticscience.org/resource/SIO_000772" title="http://semanticscience.org/resource/SIO_000772">has evidence</a>
+   </li>
+   <li>
+      <a href="#http://semanticscience.org/resource/SIO_000216" title="http://semanticscience.org/resource/SIO_000216">has measurement value</a>
+   </li>
+
+   <li>
+      <a href="#http://semanticscience.org/resource/SIO_000223" title="http://semanticscience.org/resource/SIO_000223">has property</a>
+   </li>
+   <li>
+      <a href="#http://semanticscience.org/resource/SIO_000253" title="http://semanticscience.org/resource/SIO_000253">has source</a>
+   </li>
+
+   <li>
+      <a href="#has_reference_sequence"
+         title="https://w3id.org/LUCIA/sem-lucia#has_reference_sequence">has_reference_sequence</a>
+   </li>
+   <li>
+      <a href="#hasDifferentialExpression"
+         title="https://w3id.org/LUCIA/sem-lucia#hasDifferentialExpression">hasDifferentialExpression</a>
+   </li>
+   <li>
+      <a href="#http://semanticscience.org/resource/SIO_001403" title="http://semanticscience.org/resource/SIO_001403">is associated with</a>
+   </li>
+
+   <li>
+      <a href="#http://semanticscience.org/resource/SIO_000061" title="http://semanticscience.org/resource/SIO_000061">is located in</a>
+   </li>
+
+   <li>
+      <a href="#http://semanticscience.org/resource/SIO_000068" title="http://semanticscience.org/resource/SIO_000068">is part of</a>
+   </li>
+
+   <li>
+      <a href="#http://semanticscience.org/resource/SIO_000205" title="http://semanticscience.org/resource/SIO_000205">is represented by</a>
+   </li>
+
+   <li>
+      <a href="#http://semanticscience.org/resource/SIO_000628" title="http://semanticscience.org/resource/SIO_000628">refers to</a>
+   </li>
+   <li>
+      <a href="#http://www.bioassayontology.org/bao#BAO_0090007" title="http://www.bioassayontology.org/bao#BAO_0090007">occurs in</a>
+   </li>
+
+</ul><h4>Data Properties</h4><ul xmlns:widoco="https://w3id.org/widoco/vocab#"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    class="hlist">
+ 
+   <li>
+      <a href="#consequence" title="https://w3id.org/LUCIA/sem-lucia#consequence">Consequence</a>
+   </li>
+   <li>
+      <a href="#dbsnp_id" title="https://w3id.org/LUCIA/sem-lucia#dbsnp_id">dbsnp_id</a>
+   </li>
+   <li>
+      <a href="#http://semanticscience.org/resource/SIO_000300" title="http://semanticscience.org/resource/SIO_000300">has value</a>
+   </li>
+
+ 
+   
+<!--</ul><iframe src="webvowl/index.html"></iframe> -->
+</div>
+  
+
+<!--DESCRIPTION SECTION-->
+
+<div id="description">
+   <h2 id="desc" class="list">
+     Lung-CABO: Description <span class="backlink"> back to <a href="#toc">ToC</a></span>
+   </h2>
+   <p>Lung-CABO is a biological ontology designed to integrate and structure biological information related to lung cancer.</p>
+ 
+   <p>The ontology integrates curated data from multiple public biological resources, selected based on their relevance to lung cancer biology. Key variables were extracted from each source to ensure a structured and semantically rich representation.</p>
+   
+   <ul>
+     <li>
+       <strong>DISEASE</strong> : An integrative resource of disease–gene associations, combining text mining with curated databases, cancer mutation data, and genome-wide association studies (GWAS). It features an efficient dictionary-based entity recognition system and a co-occurrence scoring approach to extract associations from the biological literature. <br>
+       <em>Extracted variables:</em> diseases, associated genes, co-occurrence and ranking scores (Z-score, Mean Rank Score, Co-occurrence Score), literature references.
+     </li>
+     <li>
+       <strong>COSMIC</strong>: A key resource for somatic mutations, essential for modeling genetic alterations in lung cancer. <br>
+       <em>Extracted variables:</em> diseases, genes, variants, chromosomes, chromosomal positions (start-end), reference and alternative alleles, literature references.
+     </li>
+     <li>
+       <strong>Mitelman Database</strong>: Focused on chromosomal abnormalities and gene fusion, crucial for representing structural variations and relevant genes in lung cancer. <br>
+       <em>Extracted variables:</em> disease, chromosomal abnormalities, gene fusions, literature references.
+     </li>
+     <li>
+       <strong>WikiPathways</strong>: A repository of biological pathways. <br>
+       <em>Extracted variables:</em> Pathways associated with lung cancer-related genes and diseases, gene products, and metabolites.
+     </li>
+     <li>
+       <strong>DisGeNET</strong>: A large-scale database of gene-disease associations (GDAs), widely used for biological research. <br>
+       <em>Extracted variables:</em> Diseases, associated genes, evidence indicators (Evidence Index, Evidence Level, Score), gene-specific properties (Disease Specificity, Disease Pleiotropy, Probability of Being Loss-of-Function Intolerant), literature references.
+     </li>
+   </ul>
+ </div>
+ <center>
+   <img src="CABOOntology.png" alt="Representation of the Lung-CABO schema" width="90%">
+   <figcaption><b>Figure 1</b> - Lung-CABO schema for the representation of databases data.</figcaption>
+ </center>
+ 
+
+
+<!--CROSSREF SECTION-->
+<div id="crossref">
+   <h2 id="crossreference" class="list">Ontology Cross Reference</h2>
+   
+   <p>This ontology is built upon the reuse of existing ontologies, ensuring that their concepts align with the defined entities. Its design is based on the structure of the DisGeNET ontology, which models associations between diseases, genes, and variants. The ontology comprises 41 classes and 17 object properties, with 35 classes and 16 object properties adapted from established vocabularies such as SIO, NCIt, OBO, Wikipathways, GENO, and MeSH. The remaining elements were specifically developed for Lung-CABO.</p>
+    
+   <p>In the Lung-CABO ontology, the core entity is Disease, represented by <code>ncit:C7057</code>, which enables a standardized representation of lung cancer. The organism in which the disease occurs is described by <code>ncit:C1450</code>, while its semantic type is captured by <code>ncit:C43817</code>.</p>
+       
+   <section>
+     <h3>Disease-Pathway Association</h3>
+     <p>This relationship is modeled through <code>LUCIA:PathwayDiseaseAssociation</code>. The class <code>LUCIA:Pathway</code> represents the metabolic pathway associated with the disease and is linked to <code>wp:Metabolite</code> (metabolites) and <code>wp:GeneProduct</code> (gene products).</p>
+   </section>
+       
+   <section>
+     <h3>Disease-Gene Association</h3>
+     <p>This association is represented by <code>sio:SIO_00098</code> and includes various indicators such as Score (<code>ncit:C25338</code>), Z-score (<code>ncit:C68741</code>), and Evidence Level (<code>ncit:C15639</code>). Lung-CABO also includes specific metrics like EvidenceIndex, cooccurrenceScore, and meanRankScore.</p>
+     <p>Genomic biomarkers within this association include Chromosomal Rearrangement (<code>sio:SIO_001349</code>), Gene Fusion (<code>sio:SIO_001348</code>), and Susceptibility to Up-Regulation (<code>mesh:D015854</code>). The gene, represented by <code>ncit:C16612</code>, is linked to Disease Specificity (<code>sio:SIO_001351</code>), Disease Pleiotropy (<code>sio:SIO_001352</code>), and a Lung-CABO-specific class for Loss-of-Function Intolerance Probability.</p>
+     <p>Additional relations exist with Pathway (<code>LUCIA:Pathway</code>), Cell (<code>ncit:C12508</code>), and Protein (<code>ncit:C17021</code>), which belongs to <code>obo:PR_000000001</code>.</p>
+   </section>
+       
+   <section>
+     <h3>Disease-Variant Association</h3>
+     <p>This association is represented by <code>sio:SIO_000897</code> and quantified through Score (<code>ncit:C25338</code>). The variant, represented by <code>OBO:SO_0001060</code>, includes attributes such as Alternative Allele (<code>geno:GENO_0000476</code>), Reference Allele (<code>geno:GENO_0000152</code>), and chromosomal positioning (<code>sio:SIO_000792</code>, <code>sio:SIO_000791</code>, <code>sio:SIO_000899</code>).</p>
+   </section>
+       
+   <section>
+     <h3>Disease-Chemical Association</h3>
+     <p>This association is represented by <code>sio:SIO_000993</code> and was defined to identify the connections between certain chemicals and lung cancer. In Lung-CABO it was conceived to serve as a link to a new module aimed at integrating and analyzing the relationship between the chemicals involved in the disease and the potential exposure of individuals.</p>
+   </section>
+       
+   <p>In Figure 1, associations are shown in blue, while related entities appear in orange.</p>
+   <p>Figure 1 provides a general overview of Lung-CABO ontology as an integrated resource used to describe the defined entities present in different databases. It is designed to facilitate the analysis of biomedical data, allowing the discovery of new patterns and associations between genes, diseases, variants, and pathways.<br><br>
+   This project has been carried out within the LUCIA project of MEDAL Laboratory (Medical Data Analytics) at the CTB-UPM.</p>
+ 
+<div xmlns:widoco="https://w3id.org/widoco/vocab#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="classes">
+ <h3 id="classes-headline" class="list">Classes</h3>
+ <ul class="hlist">
+  <li><a href="#http://bio2rdf.org/ctd_vocabulary:Chemical-Disease-Association" title="http://bio2rdf.org/ctd_vocabulary:Chemical-Disease-Association">A CTD association between a chemical and a disease [ctd_vocabulary:Chemical-Disease-Association]</a></li>
+  <li><a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C47902" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C47902">Article</a></li>
+  <li><a href="#http://semanticscience.org/resource/SIO_000897" title="http://semanticscience.org/resource/SIO_000897">association</a></li>
+  <li><a href="#http://semanticscience.org/resource/SIO_001121" title="http://semanticscience.org/resource/SIO_001121">Biomarker Association</a></li>
+  <li><a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C12508" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C12508">Cell</a></li>
+  <li><a href="#http://semanticscience.org/resource/SIO_001349" title="http://semanticscience.org/resource/SIO_001349">Chromosomal Rearrangement Association</a></li>
+  <li><a href="#http://semanticscience.org/resource/SIO_000899" title="http://semanticscience.org/resource/SIO_000899">chromosome</a></li>
+  <li><a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C13355" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C13355">chromosome arm</a></li>
+ 
+
+  <li><a href="#cooccurrencescore" title="https://w3id.org/LUCIA/sem-lucia#cooccurrencescore"> <span>cooccurrencescore</span> </a></li>
+  
+  <li><a href="#http://purl.org/dc/dcmitype/Dataset" title="http://purl.org/dc/dcmitype/Dataset">dctypes:Dataset</a></li>
+ <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C7057" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C7057">Disease, Disorder or Finding</a></li>
+  <li><a href="#VariantDiseaseAssociation" title="https://w3id.org/LUCIA/sem-lucia#VariantDiseaseAssociation">Disease-Variant Association</a></li>
+  <li><a href="#http://semanticscience.org/resource/SIO_001351" title="http://semanticscience.org/resource/SIO_001351">DisGeNET disease specificity</a></li>
+  <li><a href="#http://semanticscience.org/resource/SIO_001352" title="http://semanticscience.org/resource/SIO_001352">DisGeNET Pleiotropy Index</a></li>
+  <li><a href="#http://www.w3.org/ns/dcat#Distribution" title="http://www.w3.org/ns/dcat#Distribution">Distribution</a></li>
+  <li><a href="#http://semanticscience.org/resource/SIO_001394" title="http://semanticscience.org/resource/SIO_001394">Evidence</a></li>
+  <li><a href="#Evidence_Index" title="https://w3id.org/LUCIA/sem-lucia#Evidence_Index">Evidence Index</a></li>
+  <li><a href="#http://semanticscience.org/resource/SIO_001348" title="http://semanticscience.org/resource/SIO_001348">Fusion Gene Association</a></li>
+  <li><a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C16612" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C16612">Gene</a></li>
+  <li><a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C43568" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C43568">Gene Symbol</a></li>
+  <li><a href="#http://semanticscience.org/resource/SIO_000983" title="http://semanticscience.org/resource/SIO_000983">gene-disease association</a></li>
+  <li><a href="#http://vocabularies.wikipathways.org/wp#GeneProduct" title="http://vocabularies.wikipathways.org/wp#GeneProduct">GeneProduct</a></li>
+  <li><a href="#http://semanticscience.org/resource/SIO_001350" title="http://semanticscience.org/resource/SIO_001350">Genomic Alterations Association</a></li>
+  
+  <li><a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#Evidence_Level" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#Evidence_Level">Level of Evidence</a></li>
+  
+  <li><a href="#meankrankscore" title="https://w3id.org/LUCIA/sem-lucia#meankrankscore">Mean Rank Score</a></li>
+  
+  <li><a href="#http://vocabularies.wikipathways.org/wp#Metabolite" title="http://vocabularies.wikipathways.org/wp#Metabolite">Metabolite</a></li>
+  <li><a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C14250" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C14250">Organism</a></li>
+  
+  <li><a href="#http://vocabularies.wikipathways.org/wp#Pathway" title="http://vocabularies.wikipathways.org/wp#Pathway">Pathway</a></li>
+  <li><a href="#PathwayDiseaseAssociation" title="https://w3id.org/LUCIA/sem-lucia#PathwayDiseaseAssociation">Pathway Disease Association</a></li>
+  <li><a href="#Probability_of_being_loss_of_funtion_intolerant" title="https://w3id.org/LUCIA/sem-lucia#Probability_of_being_loss_of_funtion_intolerant">Probability of being loss of funtion intolerant</a></li>
+  <li><a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C17021" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C17021">Protein</a></li>
+  <li><a href="#http://purl.obolibrary.org/obo/PR_000000001" title="http://purl.obolibrary.org/obo/PR_000000001">ProteinClass</a></li>
+  
+  <li><a href="#http://purl.obolibrary.org/obo/GENO_0000914" title="http://purl.obolibrary.org/obo/GENO_0000914">reference genome</a></li>
+  <li><a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C25338" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C25338">Score</a></li>
+  <li><a href="#http://semanticscience.org/resource/SIO_000792" title="http://semanticscience.org/resource/SIO_000792">sequence end position</a></li>
+  <li><a href="#http://semanticscience.org/resource/SIO_000791" title="http://semanticscience.org/resource/SIO_000791">sequence start position</a></li>
+  <li><a href="#http://purl.obolibrary.org/obo/SO_0001060" title="http://purl.obolibrary.org/obo/SO_0001060">sequence_variant</a></li>
+  
+  <li><a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C43817" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C43817">Unified Medical Language System</a></li>
+  <li><a href="#http://phenomebrowser.net/ontologies/mesh/mesh.owl#D015854" title="http://phenomebrowser.net/ontologies/mesh/mesh.owl#D015854">Up-Regulation</a></li>
+  <li><a href="#http://purl.obolibrary.org/obo/GENO_0000476" title="http://purl.obolibrary.org/obo/GENO_0000476">variant</a></li>
+  <li><a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C68741" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C68741">zscore</a></li>
+ </ul>
+ <div class="entity" id="http://bio2rdf.org/ctd_vocabulary:Chemical-Disease-Association">
+  <h3>A CTD association between a chemical and a disease [ctd_vocabulary:Chemical-Disease-Association]<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://bio2rdf.org/ctd_vocabulary:Chemical-Disease-Association</p>
+  <dl class="description">
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+   <a href="#http://semanticscience.org/resource/SIO_000628" title="http://semanticscience.org/resource/SIO_000628">refers to</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+
+  </dl>
+ </div>
+ <div class="entity" id="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C47902">
+  <h3>Article<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C47902</p>
+ </div>
+ <div class="entity" id="http://semanticscience.org/resource/SIO_000897">
+  <h3>association<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://semanticscience.org/resource/SIO_000897</p>
+  <dl class="definedBy">
+   <dt>
+    Is defined by
+   </dt>
+   <dd>
+    <a href="http://semanticscience.org/ontology/sio.owl">http://semanticscience.org/ontology/sio.owl</a>
+   </dd>
+  </dl>
+  <dl class="description">
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#http://semanticscience.org/resource/SIO_000216" title="http://semanticscience.org/resource/SIO_000216">has measurement value</a> <sup class="type-op" title="object property">op</sup>, <a href="#http://semanticscience.org/resource/SIO_000628" title="http://semanticscience.org/resource/SIO_000628">refers to</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
+    is disjoint with
+   </dt>
+   <dd>
+    <a href="#http://semanticscience.org/resource/SIO_000983" title="http://semanticscience.org/resource/SIO_000983">gene-disease association</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="http://semanticscience.org/resource/SIO_001121">
+  <h3>Biomarker Association<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://semanticscience.org/resource/SIO_001121</p>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd>
+    <a href="#http://semanticscience.org/resource/SIO_000983" title="http://semanticscience.org/resource/SIO_000983">gene-disease association</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    has sub-classes
+   </dt>
+   <dd>
+    <a href="#http://semanticscience.org/resource/SIO_001350" title="http://semanticscience.org/resource/SIO_001350">Genomic Alterations Association</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   
+
+  </dl>
+ </div>
+ 
+ 
+ <div class="entity" id="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C12508">
+  <h3>Cell<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C12508</p>
+  <dl class="description">
+  
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#http://semanticscience.org/resource/SIO_000068" title="http://semanticscience.org/resource/SIO_000068">is part of</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ 
+
+ <div class="entity" id="http://semanticscience.org/resource/SIO_001349">
+  <h3>Chromosomal Rearrangement Association<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://semanticscience.org/resource/SIO_001349</p>
+  <div class="comment">
+   <span class="markdown">Relationships mapped to this class: "Role in the phenotype of" (Orphanet)</span>
+  </div>
+  <dl class="definedBy">
+   <dt>
+    Is defined by
+   </dt>
+   <dd>
+    <a href="http://semanticscience.org/ontology/sio.owl">http://semanticscience.org/ontology/sio.owl</a>
+   </dd>
+  </dl>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd>
+    <a href="#http://semanticscience.org/resource/SIO_001350" title="http://semanticscience.org/resource/SIO_001350">Genomic Alterations Association</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#http://semanticscience.org/resource/SIO_000008" title="http://semanticscience.org/resource/SIO_000008">has attribute</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="http://semanticscience.org/resource/SIO_000899">
+  <h3>chromosome<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://semanticscience.org/resource/SIO_000899</p>
+  <div class="comment">
+   <span class="markdown">A chromosome is a molecular complex of circular or linear DNA and bound proteins.</span>
+  </div>
+  <dl class="definedBy">
+   <dt>
+    Is defined by
+   </dt>
+   <dd>
+    <a href="http://semanticscience.org/ontology/sio.owl">http://semanticscience.org/ontology/sio.owl</a>
+   </dd>
+  </dl>
+  <dl class="description">
+ 
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#http://semanticscience.org/resource/SIO_000061" title="http://semanticscience.org/resource/SIO_000061">is located in</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C13355">
+  <h3>chromosome arm<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C13355</p>
+  <div class="comment">
+   <span class="markdown">Under the microscope chromosomes appear as thin, thread-like structures. They all have a short arm and long arm separated by a primary constriction called the centromere. The short arm is designated as p and the long arm as q.</span>
+  </div>
+  <dl class="description">
+ 
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#http://semanticscience.org/resource/SIO_000061" title="http://semanticscience.org/resource/SIO_000061">is located in</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ 
+ <div class="entity" id="cooccurrencescore">
+  <h3>cooccurrencescore<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/LUCIA/sem-lucia#cooccurrencescore</p>
+  <dl class="description">
+  
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#http://semanticscience.org/resource/SIO_000216" title="http://semanticscience.org/resource/SIO_000216">has measurement value</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
+    is disjoint with
+   </dt>
+   <dd>
+    <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C16612" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C16612">Gene</a> <sup class="type-c" title="class">c</sup>, <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C7057" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C7057">Disease, Disorder or Finding</a> <sup class="type-c" title="class">c</sup>, <a href="#http://purl.obolibrary.org/obo/SO_0001060" title="http://purl.obolibrary.org/obo/SO_0001060">sequence_variant</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+  </dl>
+ </div>
+ 
+ <div class="entity" id="http://purl.org/dc/dcmitype/Dataset">
+  <h3>dctypes:Dataset<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://purl.org/dc/dcmitype/Dataset</p>
+  <div class="comment">
+   <span class="markdown">A specific representation of a dataset. A dataset might be available in multiple serializations that may differ in various ways, including natural language, media-type or format, schematic organization, temporal and spatial resolution, level of detail or profiles (which might specify any or all of the above).</span>
+  </div>
+  <div class="comment">
+   <span class="markdown">A specific representation of a dataset. A dataset might be available in multiple serializations that may differ in various ways, including natural language, media-type or format, schematic organization, temporal and spatial resolution, level of detail or profiles (which might specify any or all of the above).</span>
+  </div>
+  <dl class="definedBy">
+   <dt>
+    Is defined by
+   </dt>
+   <dd>
+    <a href="http://purl.org/dc/terms/DCMIType">http://purl.org/dc/terms/DCMIType</a>
+   </dd>
+  </dl>
+  <dl class="description">
+   
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#http://semanticscience.org/resource/SIO_000253" title="http://semanticscience.org/resource/SIO_000253">has source</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+
+ 
+ <div class="entity" id="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C7057">
+  <h3>Disease, Disorder or Finding<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C7057</p>
+  <dl class="description">
+  
+   <dt>
+    is disjoint with
+   </dt>
+   <dd>
+    <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C16612" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C16612">Gene</a> <sup class="type-c" title="class">c</sup>, <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C25338" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C25338">Score</a> <sup class="type-c" title="class">c</sup>, <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C68741" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C68741">zscore</a> <sup class="type-c" title="class">c</sup>, <a href="#http://purl.obolibrary.org/obo/SO_0001060" title="http://purl.obolibrary.org/obo/SO_0001060">sequence_variant</a> <sup class="type-c" title="class">c</sup>, <a href="#cooccurrencescore" title="https://w3id.org/LUCIA/sem-lucia#cooccurrencescore">cooccurrencescore</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+  </dl>
+ </div>
+
+ <div class="entity" id="http://semanticscience.org/resource/SIO_001351">
+  <h3>DisGeNET disease specificity<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://semanticscience.org/resource/SIO_001351</p>
+  <dl class="definedBy">
+   <dt>
+    Is defined by
+   </dt>
+   <dd>
+    <a href="http://semanticscience.org/ontology/sio.owl">http://semanticscience.org/ontology/sio.owl</a>
+   </dd>
+  </dl>
+  <dl class="description">
+   
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#http://semanticscience.org/resource/SIO_000216" title="http://semanticscience.org/resource/SIO_000216">has measurement value</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="http://semanticscience.org/resource/SIO_001352">
+  <h3>DisGeNET Pleiotropy Index<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://semanticscience.org/resource/SIO_001352</p>
+  <dl class="definedBy">
+   <dt>
+    Is defined by
+   </dt>
+   <dd>
+    <a href="http://semanticscience.org/ontology/sio.owl">http://semanticscience.org/ontology/sio.owl</a>
+   </dd>
+  </dl>
+  <dl class="description">
+   
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#http://semanticscience.org/resource/SIO_000216" title="http://semanticscience.org/resource/SIO_000216">has measurement value</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="http://www.w3.org/ns/dcat#Distribution">
+  <h3>Distribution<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://www.w3.org/ns/dcat#Distribution</p>
+  <div class="comment">
+   <span class="markdown">Represents a specific available form of a dataset. Each dataset might be available in different forms, these forms might represent different formats of the dataset or different endpoints. Examples of distributions include a downloadable CSV file, an API or an RSS feed</span>
+  </div>
+  <div class="comment">
+   <span class="markdown">A specific representation of a dataset. A dataset might be available in multiple serializations that may differ in various ways, including natural language, media-type or format, schematic organization, temporal and spatial resolution, level of detail or profiles (which might specify any or all of the above).</span>
+  </div>
+  <dl class="definedBy">
+   <dt>
+    Is defined by
+   </dt>
+   <dd>
+    <a href="http://www.w3.org/TR/vocab-dcat/">http://www.w3.org/TR/vocab-dcat/</a>
+   </dd>
+  </dl>
+  <dl class="description">
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#http://semanticscience.org/resource/SIO_000253" title="http://semanticscience.org/resource/SIO_000253">has source</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="http://semanticscience.org/resource/SIO_001394">
+  <h3>Evidence<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://semanticscience.org/resource/SIO_001394</p>
+  <dl class="definedBy">
+   <dt>
+    Is defined by
+   </dt>
+   <dd>
+    <a href="http://semanticscience.org/ontology/sio.owl">http://semanticscience.org/ontology/sio.owl</a>
+   </dd>
+  </dl>
+  <dl class="description">
+  
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#http://semanticscience.org/resource/SIO_000216" title="http://semanticscience.org/resource/SIO_000216">has measurement value</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Evidence_Index">
+  <h3>Evidence Index<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/LUCIA/sem-lucia#Evidence_Index</p>
+  <dl class="description">
+   
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#http://semanticscience.org/resource/SIO_000216" title="http://semanticscience.org/resource/SIO_000216">has measurement value</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ 
+ <div class="entity" id="http://semanticscience.org/resource/SIO_001348">
+  <h3>Fusion Gene Association<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://semanticscience.org/resource/SIO_001348</p>
+  <div class="comment">
+   <span class="markdown">Relationships mapped to this class: "Part of a fusion gene in" (Orphanet)</span>
+  </div>
+  <dl class="definedBy">
+   <dt>
+    Is defined by
+   </dt>
+   <dd>
+    <a href="http://semanticscience.org/ontology/sio.owl">http://semanticscience.org/ontology/sio.owl</a>
+   </dd>
+  </dl>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd>
+    <a href="#http://semanticscience.org/resource/SIO_001350" title="http://semanticscience.org/resource/SIO_001350">Genomic Alterations Association</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+  
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#http://semanticscience.org/resource/SIO_000008" title="http://semanticscience.org/resource/SIO_000008">has attribute</a> <sup class="type-op" title="object property">op</sup>, <a href="#http://semanticscience.org/resource/SIO_000145" title="http://semanticscience.org/resource/SIO_000145">is location of</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C16612">
+  <h3>Gene<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C16612</p>
+  <dl class="description">
+   
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#http://semanticscience.org/resource/SIO_000028" title="http://semanticscience.org/resource/SIO_000028">has part</a> <sup class="type-op" title="object property">op</sup>, <a href="#http://semanticscience.org/resource/SIO_001403" title="http://semanticscience.org/resource/SIO_001403">is associated with</a> <sup class="type-op" title="object property">op</sup>, <a href="#http://semanticscience.org/resource/SIO_010079" title="http://semanticscience.org/resource/SIO_010079">is encoded by</a> <sup class="type-op" title="object property">op</sup>, <a href="#http://semanticscience.org/resource/SIO_000145" title="http://semanticscience.org/resource/SIO_000145">is location of</a> <sup class="type-op" title="object property">op</sup>, <a href="#http://semanticscience.org/resource/SIO_000215" title="http://semanticscience.org/resource/SIO_000215">is measurement value of</a> <sup class="type-op" title="object property">op</sup>, <a href="#http://semanticscience.org/resource/SIO_000628" title="http://semanticscience.org/resource/SIO_000628">refers to</a> <sup class="type-op" title="object property">op</sup>, <a href="#http://semanticscience.org/resource/SIO_000210" title="http://semanticscience.org/resource/SIO_000210">represents</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
+    is disjoint with
+   </dt>
+   <dd>
+    <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C25338" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C25338">Score</a> <sup class="type-c" title="class">c</sup>, <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C68741" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C68741">zscore</a> <sup class="type-c" title="class">c</sup>, <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C7057" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C7057">Disease, Disorder or Finding</a> <sup class="type-c" title="class">c</sup>, <a href="#cooccurrencescore" title="https://w3id.org/LUCIA/sem-lucia#cooccurrencescore">cooccurrencescore</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C43568">
+  <h3>Gene Symbol<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C43568</p>
+  <dl class="description">
+   
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#http://semanticscience.org/resource/SIO_000205" title="http://semanticscience.org/resource/SIO_000205">is represented by</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="http://semanticscience.org/resource/SIO_000983">
+  <h3>gene-disease association<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://semanticscience.org/resource/SIO_000983</p>
+  <dl class="definedBy">
+   <dt>
+    Is defined by
+   </dt>
+   <dd>
+    <a href="http://semanticscience.org/ontology/sio.owl">http://semanticscience.org/ontology/sio.owl</a>
+   </dd>
+  </dl>
+  <dl class="description">
+   <dt>
+    has sub-classes
+   </dt>
+   <dd>
+    <a href="#http://semanticscience.org/resource/SIO_001121" title="http://semanticscience.org/resource/SIO_001121">Biomarker Association</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+  
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#http://semanticscience.org/resource/SIO_000215" title="http://semanticscience.org/resource/SIO_000215">is measurement value of</a> <sup class="type-op" title="object property">op</sup>, <a href="#http://semanticscience.org/resource/SIO_000212" title="http://semanticscience.org/resource/SIO_000212">is referred to by</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
+    is disjoint with
+   </dt>
+   <dd>
+    <a href="#http://semanticscience.org/resource/SIO_000897" title="http://semanticscience.org/resource/SIO_000897">association</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="http://vocabularies.wikipathways.org/wp#GeneProduct">
+  <h3>GeneProduct<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://vocabularies.wikipathways.org/wp#GeneProduct</p>
+  <div class="comment">
+   <span class="markdown">An entity representing any product of a given gene, including DNA, RNA and Protein. This is the most generic representation of a gene-based biomolecule and is useful when more than one representation might be useful in the given context.</span>
+  </div>
+  <dl class="description">
+   
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#http://semanticscience.org/resource/SIO_000028" title="http://semanticscience.org/resource/SIO_000028">has part</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="http://semanticscience.org/resource/SIO_001350">
+  <h3>Genomic Alterations Association<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://semanticscience.org/resource/SIO_001350</p>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd>
+    <a href="#http://semanticscience.org/resource/SIO_001121" title="http://semanticscience.org/resource/SIO_001121">Biomarker Association</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    has sub-classes
+   </dt>
+   <dd>
+    <a href="#http://semanticscience.org/resource/SIO_001349" title="http://semanticscience.org/resource/SIO_001349">Chromosomal Rearrangement Association</a> <sup class="type-c" title="class">c</sup>, <a href="#http://semanticscience.org/resource/SIO_001348" title="http://semanticscience.org/resource/SIO_001348">Fusion Gene Association</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#http://semanticscience.org/resource/SIO_000008" title="http://semanticscience.org/resource/SIO_000008">has attribute</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   
+  </dl>
+ </div>
+ 
+ <div class="entity" id="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#Evidence_Level">
+  <h3>Level of Evidence<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#Evidence_Level</p>
+  <dl class="description">
+   
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#http://semanticscience.org/resource/SIO_000216" title="http://semanticscience.org/resource/SIO_000216">has measurement value</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ 
+ <div class="entity" id="meankrankscore">
+  <h3>Mean Rank Score<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/LUCIA/sem-lucia#meankrankscore</p>
+  <dl class="description">
+   
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#http://semanticscience.org/resource/SIO_000216" title="http://semanticscience.org/resource/SIO_000216">has measurement value</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ 
+ <div class="entity" id="http://vocabularies.wikipathways.org/wp#Metabolite">
+  <h3>Metabolite<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://vocabularies.wikipathways.org/wp#Metabolite</p>
+  <dl class="description">
+   
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#http://semanticscience.org/resource/SIO_000028" title="http://semanticscience.org/resource/SIO_000028">has part</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+
+ 
+ 
+ <div class="entity" id="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C14250">
+  <h3>Organism<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C14250</p>
+  <dl class="description">
+
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#R41" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#R41">Gene_Found_In_Organism</a> <sup class="type-op" title="object property">op</sup>, <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#R45" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#R45">Gene_Product_Has_Organism_Source</a> <sup class="type-op" title="object property">op</sup>, <a href="#http://www.bioassayontology.org/bao#BAO_0090007" title="http://www.bioassayontology.org/bao#BAO_0090007">occurs in</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ 
+ <div class="entity" id="http://vocabularies.wikipathways.org/wp#Pathway">
+  <h3>Pathway<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://vocabularies.wikipathways.org/wp#Pathway</p>
+  <div class="comment">
+   <span class="markdown">A biological process representing a set of interactions and relationships among genes, proteins, metabolites, and other factors in the context of cellular compartments, tissues and organisms.</span>
+  </div>
+  <dl class="description">
+   
+  </dl>
+ </div>
+ <div class="entity" id="PathwayDiseaseAssociation">
+  <h3>Pathway Disease Association<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/LUCIA/sem-lucia#PathwayDiseaseAssociation</p>
+  <div class="comment">
+   <span class="markdown">A pathway-disease association is an association between a pathway and a disease.</span>
+  </div>
+  <dl class="description">
+   
+   <dd>
+    <a href="#http://semanticscience.org/resource/SIO_000212" title="http://semanticscience.org/resource/SIO_000212">is referred to by</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+
+ <div class="entity" id="Probability_of_being_loss_of_funtion_intolerant">
+  <h3>Probability of being loss of funtion intolerant<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/LUCIA/sem-lucia#Probability_of_being_loss_of_funtion_intolerant</p>
+  <dl class="description">
+   
+  </dl>
+ </div>
+ <div class="entity" id="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C17021">
+  <h3>Protein<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C17021</p>
+  <dl class="description">
+   
+  </dl>
+ </div>
+ <div class="entity" id="http://purl.obolibrary.org/obo/PR_000000001">
+  <h3>ProteinClass<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://purl.obolibrary.org/obo/PR_000000001</p>
+  <dl class="description">
+   
+   
+  </dl>
+ </div>
+ 
+ <div class="entity" id="http://purl.obolibrary.org/obo/GENO_0000152">
+  <h3>reference<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://purl.obolibrary.org/obo/GENO_0000152</p>
+  <dl class="description">
+   
+  </dl>
+ </div>
+ <div class="entity" id="http://purl.obolibrary.org/obo/GENO_0000914">
+  <h3>reference genome<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://purl.obolibrary.org/obo/GENO_0000914</p>
+  <dl class="description">
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#has_reference_sequence" title="https://w3id.org/LUCIA/sem-lucia#has_reference_sequence">has_reference_sequence</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C25338">
+  <h3>Score<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C25338</p>
+  <dl class="description">
+   
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#http://semanticscience.org/resource/SIO_000216" title="http://semanticscience.org/resource/SIO_000216">has measurement value</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
+    is disjoint with
+   </dt>
+   <dd>
+    <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C16612" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C16612">Gene</a> <sup class="type-c" title="class">c</sup>, <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C7057" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C7057">Disease, Disorder or Finding</a> <sup class="type-c" title="class">c</sup>, <a href="#http://purl.obolibrary.org/obo/SO_0001060" title="http://purl.obolibrary.org/obo/SO_0001060">sequence_variant</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="http://semanticscience.org/resource/SIO_000792">
+  <h3>sequence end position<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://semanticscience.org/resource/SIO_000792</p>
+  <dl class="definedBy">
+   <dt>
+    Is defined by
+   </dt>
+   <dd>
+    <a href="http://semanticscience.org/ontology/sio.owl">http://semanticscience.org/ontology/sio.owl</a>
+   </dd>
+  </dl>
+  <dl class="description">
+   
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#http://semanticscience.org/resource/SIO_000061" title="http://semanticscience.org/resource/SIO_000061">is located in</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="http://semanticscience.org/resource/SIO_000791">
+  <h3>sequence start position<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://semanticscience.org/resource/SIO_000791</p>
+  <dl class="definedBy">
+   <dt>
+    Is defined by
+   </dt>
+   <dd>
+    <a href="http://semanticscience.org/ontology/sio.owl">http://semanticscience.org/ontology/sio.owl</a>
+   </dd>
+  </dl>
+  <dl class="description">
+   
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#http://semanticscience.org/resource/SIO_000061" title="http://semanticscience.org/resource/SIO_000061">is located in</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="http://purl.obolibrary.org/obo/SO_0001060">
+  <h3>sequence_variant<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://purl.obolibrary.org/obo/SO_0001060</p>
+  <div class="comment">
+   <span class="markdown">A sequence_variant is a non exact copy of a sequence_feature or genome exhibiting one or more sequence_alteration.</span>
+  </div>
+  <dl class="description">
+   
+   <dt>
+    is disjoint with
+   </dt>
+   <dd>
+    <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C25338" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C25338">Score</a> <sup class="type-c" title="class">c</sup>, <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C68741" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C68741">zscore</a> <sup class="type-c" title="class">c</sup>, <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C7057" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C7057">Disease, Disorder or Finding</a> <sup class="type-c" title="class">c</sup>, <a href="#cooccurrencescore" title="https://w3id.org/LUCIA/sem-lucia#cooccurrencescore">cooccurrencescore</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+  </dl>
+ </div>
+ 
+ 
+ <div class="entity" id="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C43817">
+  <h3>Unified Medical Language System<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C43817</p>
+ </div>
+ 
+ <div class="entity" id="http://phenomebrowser.net/ontologies/mesh/mesh.owl#D015854">
+  <h3>Up-Regulation<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://phenomebrowser.net/ontologies/mesh/mesh.owl#D015854</p>
+  <dl class="description">
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#http://semanticscience.org/resource/SIO_000235" title="http://semanticscience.org/resource/SIO_000235">has disposition</a> <sup class="type-op" title="object property">op</sup>, <a href="#hasDifferentialExpression" title="https://w3id.org/LUCIA/sem-lucia#hasDifferentialExpression">hasDifferentialExpression</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="http://purl.obolibrary.org/obo/GENO_0000476">
+  <h3>variant<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://purl.obolibrary.org/obo/GENO_0000476</p>
+  <dl class="description">
+   
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#http://semanticscience.org/resource/SIO_000059" title="http://semanticscience.org/resource/SIO_000059">has member</a> <sup class="type-op" title="object property">op</sup>, <a href="#http://semanticscience.org/resource/SIO_000628" title="http://semanticscience.org/resource/SIO_000628">refers to</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ 
+ <div class="entity" id="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C68741">
+  <h3>zscore<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C68741</p>
+  <dl class="definedBy">
+   <dt>
+    Is defined by
+   </dt>
+   <dd>
+    <a href="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl">http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl</a>
+   </dd>
+  </dl>
+  <dl class="description">
+   
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#http://semanticscience.org/resource/SIO_000216" title="http://semanticscience.org/resource/SIO_000216">has measurement value</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
+    is disjoint with
+   </dt>
+   <dd>
+    <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C16612" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C16612">Gene</a> <sup class="type-c" title="class">c</sup>, <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C7057" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C7057">Disease, Disorder or Finding</a> <sup class="type-c" title="class">c</sup>, <a href="#http://purl.obolibrary.org/obo/SO_0001060" title="http://purl.obolibrary.org/obo/SO_0001060">sequence_variant</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+  </dl>
+ </div>
+</div><div xmlns:widoco="https://w3id.org/widoco/vocab#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="objectproperties">
+ <h3 id="properties" class="list">Object Properties</h3>
+ <ul class="hlist">
+   <li><a href="#http://semanticscience.org/resource/SIO_010078" title="http://semanticscience.org/resource/SIO_010078">encodes</a></li>
+   <li><a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#R41" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#R41">Gene_Found_In_Organism</a></li>
+   <li><a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#R45" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#R45">Gene_Product_Has_Organism_Source</a></li>
+   <li><a href="#http://semanticscience.org/resource/SIO_000008" title="http://semanticscience.org/resource/SIO_000008">has attribute</a></li>
+   <li><a href="#http://semanticscience.org/resource/SIO_000235" title="http://semanticscience.org/resource/SIO_000235">has disposition</a></li>
+   <li><a href="#http://semanticscience.org/resource/SIO_000772" title="http://semanticscience.org/resource/SIO_000772">has evidence</a></li>
+   <li><a href="#http://semanticscience.org/resource/SIO_000216" title="http://semanticscience.org/resource/SIO_000216">has measurement value</a></li>
+   <li><a href="#http://semanticscience.org/resource/SIO_000223" title="http://semanticscience.org/resource/SIO_000223">has property</a></li>
+   <li><a href="#http://semanticscience.org/resource/SIO_000253" title="http://semanticscience.org/resource/SIO_000253">has source</a></li>
+   <li><a href="#has_reference_sequence" title="https://w3id.org/LUCIA/sem-lucia#has_reference_sequence">has_reference_sequence</a></li>
+   <li><a href="#hasDifferentialExpression" title="https://w3id.org/LUCIA/sem-lucia#hasDifferentialExpression">hasDifferentialExpression</a></li>
+   <li><a href="#http://semanticscience.org/resource/SIO_001403" title="http://semanticscience.org/resource/SIO_001403">is associated with</a></li>
+   <li><a href="#http://semanticscience.org/resource/SIO_000061" title="http://semanticscience.org/resource/SIO_000061">is located in</a></li>
+   <li><a href="#http://semanticscience.org/resource/SIO_000068" title="http://semanticscience.org/resource/SIO_000068">is part of</a></li>
+   <li><a href="#http://semanticscience.org/resource/SIO_000205" title="http://semanticscience.org/resource/SIO_000205">is represented by</a></li>
+   <li><a href="#http://semanticscience.org/resource/SIO_000628" title="http://semanticscience.org/resource/SIO_000628">refers to</a></li>
+   <li><a href="#http://www.bioassayontology.org/bao#BAO_0090007" title="http://www.bioassayontology.org/bao#BAO_0090007">occurs in</a></li>
+   
+ </ul>
+ <div class="entity" id="http://semanticscience.org/resource/SIO_010078">
+   <h3>encodes<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+   <p><strong>IRI:</strong> http://semanticscience.org/resource/SIO_010078</p>
+   <dl class="definedBy">
+   <dt>
+       Is defined by
+      </dt>
+   <dd>
+   <a href="http://semanticscience.org/ontology/sio.owl">http://semanticscience.org/ontology/sio.owl</a>
+   </dd>
+   </dl>
+   <dl>
+   <dt>
+       Example
+      </dt>
+   <dd>
+   <pre>an open reading frame encodes a protein (it contains information that specifies the amino acid composition and topology)</pre>
+   </dd>
+   </dl>
+   <div class="description">
+   <dl>
+   <dt>
+        has super-properties
+       </dt>
+   <dd>
+   <a href="#http://semanticscience.org/resource/SIO_000062" title="http://semanticscience.org/resource/SIO_000062">is participant in</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
+        has domain
+       </dt>
+   <dd>
+   <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C16612" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C16612">Gene</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+        has range
+       </dt>
+   <dd>
+   <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C17021" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C17021">Protein</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+  
+   </dl>
+   </div>
+   </div>
+   <div class="entity" id="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#R41">
+   <h3>Gene_Found_In_Organism<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+   <p><strong>IRI:</strong> http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#R41</p>
+   <div class="description">
+   <dl>
+   <dt>
+        has domain
+       </dt>
+   <dd>
+   <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C16612" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C16612">Gene</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+        has range
+       </dt>
+   <dd>
+   <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C14250" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C14250">Organism</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   </dl>
+   </div>
+   </div>
+   <div class="entity" id="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#R45">
+   <h3>Gene_Product_Has_Organism_Source<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+   <p><strong>IRI:</strong> http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#R45</p>
+   <div class="description">
+   <dl>
+   <dt>
+        has domain
+       </dt>
+   <dd>
+   <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C17021" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C17021">Protein</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+        has range
+       </dt>
+   <dd>
+   <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C14250" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C14250">Organism</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   </dl>
+   </div>
+   </div>
+   <div class="entity" id="http://semanticscience.org/resource/SIO_000008">
+   <h3>has attribute<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+   <p><strong>IRI:</strong> http://semanticscience.org/resource/SIO_000008</p>
+   <dl class="definedBy">
+   <dt>
+       Is defined by
+      </dt>
+   <dd>
+   <a href="http://semanticscience.org/ontology/sio.owl">http://semanticscience.org/ontology/sio.owl</a>
+   </dd>
+   </dl>
+   <div class="description">
+   <dl>
+   <dt>
+        has sub-properties
+       </dt>
+   <dd>
+   <a href="#http://semanticscience.org/resource/SIO_000216" title="http://semanticscience.org/resource/SIO_000216">has measurement value</a> <sup class="type-op" title="object property">op</sup>, <a href="#http://semanticscience.org/resource/SIO_000223" title="http://semanticscience.org/resource/SIO_000223">has property</a> <sup class="type-op" title="object property">op</sup>
+   
+   
+</dd>
+   <dt>
+        has domain
+       </dt>
+   <dd>
+     <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C7057" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C7057">Disease, Disorder or Finding</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#http://semanticscience.org/resource/SIO_001350" title="http://semanticscience.org/resource/SIO_001350">Genomic Alterations Association</a> <sup class="type-c" title="class">c</sup> <span class="logic">
+      
+   </dd>
+   <dt>
+        has range
+       </dt>
+   <dd>
+   <a href="#http://semanticscience.org/resource/SIO_001348" title="http://semanticscience.org/resource/SIO_001348">Fusion Gene Association</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#http://semanticscience.org/resource/SIO_001349" title="http://semanticscience.org/resource/SIO_001349">Chromosomal Rearrangement Association</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   </dl>
+   </div>
+   </div>
+   <div class="entity" id="http://semanticscience.org/resource/SIO_000235">
+   <h3>has disposition<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+   <p><strong>IRI:</strong> http://semanticscience.org/resource/SIO_000235</p>
+   <dl class="definedBy">
+   <dt>
+       Is defined by
+      </dt>
+   <dd>
+   <a href="http://semanticscience.org/ontology/sio.owl">http://semanticscience.org/ontology/sio.owl</a>
+   </dd>
+   </dl>
+   <div class="description">
+   <dl>
+   <dt>
+        has domain
+       </dt>
+   <dd>
+   <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C16612" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C16612">Gene</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+        has range
+       </dt>
+   <dd>
+   <a href="#http://phenomebrowser.net/ontologies/mesh/mesh.owl#D015854" title="http://phenomebrowser.net/ontologies/mesh/mesh.owl#D015854">Up-Regulation</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   </dl>
+   </div>
+   </div>
+   <div class="entity" id="http://semanticscience.org/resource/SIO_000772">
+   <h3>has evidence<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+   <p><strong>IRI:</strong> http://semanticscience.org/resource/SIO_000772</p>
+   <dl class="definedBy">
+   <dt>
+       Is defined by
+      </dt>
+   <dd>
+   <a href="http://semanticscience.org/ontology/sio.owl">http://semanticscience.org/ontology/sio.owl</a>
+   </dd>
+   </dl>
+   <div class="description">
+   <dl>
+   <dt>
+        has super-properties
+       </dt>
+   <dd>
+   <a href="http://www.w3.org/2002/07/owl#topObjectProperty" target="_blank" title="http://www.w3.org/2002/07/owl#topObjectProperty">top Object Property</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
+        has domain
+       </dt>
+   <dd>
+   <a href="#http://purl.obolibrary.org/obo/SO_0001060" title="http://purl.obolibrary.org/obo/SO_0001060">sequence_variant</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#http://semanticscience.org/resource/SIO_000983" title="http://semanticscience.org/resource/SIO_000983">gene-disease association</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+        has range
+       </dt>
+   <dd>
+   <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C47902" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C47902">Article</a> <sup class="type-c" title="class">c</sup> <span class="logic">
+     
+   </dd>
+   </dl>
+   </div>
+   </div>
+   <div class="entity" id="http://semanticscience.org/resource/SIO_000216">
+   <h3>has measurement value<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+   <p><strong>IRI:</strong> http://semanticscience.org/resource/SIO_000216</p>
+   <dl class="definedBy">
+   <dt>
+       Is defined by
+      </dt>
+   <dd>
+   <a href="http://semanticscience.org/ontology/sio.owl">http://semanticscience.org/ontology/sio.owl</a>
+   </dd>
+   </dl>
+   <div class="description">
+   <dl>
+   <dt>
+        has super-properties
+       </dt>
+   <dd>
+   <a href="#http://semanticscience.org/resource/SIO_000008" title="http://semanticscience.org/resource/SIO_000008">has attribute</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
+        has domain
+       </dt>
+   <dd>
+   <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C16612" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C16612">Gene</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C7057" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C7057">Disease, Disorder or Finding</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#http://purl.obolibrary.org/obo/SO_0001060" title="http://purl.obolibrary.org/obo/SO_0001060">sequence_variant</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#http://semanticscience.org/resource/SIO_000897" title="http://semanticscience.org/resource/SIO_000897">association</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#http://semanticscience.org/resource/SIO_000983" title="http://semanticscience.org/resource/SIO_000983">gene-disease association</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+        has range
+       </dt>
+   <dd>
+   <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C25338" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C25338">Score</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C68741" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C68741">zscore</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#Evidence_Level" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#Evidence_Level">Level of Evidence</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#http://semanticscience.org/resource/SIO_001351" title="http://semanticscience.org/resource/SIO_001351">DisGeNET disease specificity</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#http://semanticscience.org/resource/SIO_001352" title="http://semanticscience.org/resource/SIO_001352">DisGeNET Pleiotropy Index</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#http://semanticscience.org/resource/SIO_001394" title="http://semanticscience.org/resource/SIO_001394">Evidence</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#Evidence_Index" title="https://w3id.org/LUCIA/sem-lucia#Evidence_Index">Evidence Index</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#Probability_of_being_loss_of_funtion_intolerant" title="https://w3id.org/LUCIA/sem-lucia#Probability_of_being_loss_of_funtion_intolerant">Probability of being loss of funtion intolerant</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#cooccurrencescore" title="https://w3id.org/LUCIA/sem-lucia#cooccurrencescore">cooccurrencescore</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#meankrankscore" title="https://w3id.org/LUCIA/sem-lucia#meankrankscore">Mean Rank Score</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   </dl>
+   </div>
+   </div>
+   <div class="entity" id="http://semanticscience.org/resource/SIO_000223">
+   <h3>has property<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+   <p><strong>IRI:</strong> http://semanticscience.org/resource/SIO_000223</p>
+   <dl class="definedBy">
+   <dt>
+       Is defined by
+      </dt>
+   <dd>
+   <a href="http://semanticscience.org/ontology/sio.owl">http://semanticscience.org/ontology/sio.owl</a>
+   </dd>
+   </dl>
+   <div class="description">
+   <dl>
+   <dt>
+        has super-properties
+       </dt>
+   <dd>
+   <a href="#http://semanticscience.org/resource/SIO_000008" title="http://semanticscience.org/resource/SIO_000008">has attribute</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
+        has sub-properties
+       </dt>
+   <dd>
+   <a href="#http://semanticscience.org/resource/SIO_000059" title="http://semanticscience.org/resource/SIO_000059">has member</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   </dl>
+   </div>
+   </div>
+   <div class="entity" id="http://semanticscience.org/resource/SIO_000253">
+   <h3>has source<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+   <p><strong>IRI:</strong> http://semanticscience.org/resource/SIO_000253</p>
+   <div class="info">
+   <span class="markdown">has source is a relation between an entity and another entity from which it stems from.</span>
+   </div>
+   <dl class="definedBy">
+   <dt>
+       Is defined by
+      </dt>
+   <dd>
+   <a href="http://semanticscience.org/ontology/sio.owl">http://semanticscience.org/ontology/sio.owl</a>
+   </dd>
+   </dl>
+   <div class="description">
+   <dl>
+   <dt>
+        has domain
+       </dt>
+   <dd>
+   <a href="#http://bio2rdf.org/ctd_vocabulary:Chemical-Disease-Association" title="http://bio2rdf.org/ctd_vocabulary:Chemical-Disease-Association">A CTD association between a chemical and a disease [ctd_vocabulary:Chemical-Disease-Association]</a> <sup class="type-c" title="class">c</sup> <span class="logic">
+         or</span> <a href="#http://semanticscience.org/resource/SIO_000983" title="http://semanticscience.org/resource/SIO_000983">gene-disease association</a> <sup class="type-c" title="class">c</sup> <span class="logic">
+         or</span> <a href="#http://semanticscience.org/resource/SIO_000897" title="http://semanticscience.org/resource/SIO_000897">association</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+        has range
+       </dt>
+   <dd>
+   <a href="#http://purl.org/dc/dcmitype/Dataset" title="http://purl.org/dc/dcmitype/Dataset">dctypes:Dataset</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#http://www.w3.org/ns/dcat#Distribution" title="http://www.w3.org/ns/dcat#Distribution">Distribution</a> <sup class="type-c" title="class">c</sup> <span class="logic">
+      
+   </dd>
+   </dl>
+   </div>
+   </div>
+   <div class="entity" id="has_reference_sequence">
+   <h3>has_reference_sequence<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+   <p><strong>IRI:</strong> https://w3id.org/LUCIA/sem-lucia#has_reference_sequence</p>
+   <div class="description">
+   <dl>
+   <dt>
+        has super-properties
+       </dt>
+   <dd>
+   <a href="#http://semanticscience.org/resource/SIO_000061" title="http://semanticscience.org/resource/SIO_000061">is located in</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
+        has domain
+       </dt>
+   <dd>
+   <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C14250" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C14250">Organism</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+        has range
+       </dt>
+   <dd>
+   <a href="#http://purl.obolibrary.org/obo/GENO_0000914" title="http://purl.obolibrary.org/obo/GENO_0000914">reference genome</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   </dl>
+   </div>
+   </div>
+   <div class="entity" id="hasDifferentialExpression">
+   <h3>hasDifferentialExpression<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+   <p><strong>IRI:</strong> https://w3id.org/LUCIA/sem-lucia#hasDifferentialExpression</p>
+   <div class="description">
+   <dl>
+   <dt>
+        has domain
+       </dt>
+   <dd>
+   <a href="#http://semanticscience.org/resource/SIO_000983" title="http://semanticscience.org/resource/SIO_000983">gene-disease association</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+        has range
+       </dt>
+   <dd>
+   <a href="#http://phenomebrowser.net/ontologies/mesh/mesh.owl#D015854" title="http://phenomebrowser.net/ontologies/mesh/mesh.owl#D015854">Up-Regulation</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   </dl>
+   </div>
+   </div>
+   <div class="entity" id="http://semanticscience.org/resource/SIO_001403">
+   <h3>is associated with<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+   <p><strong>IRI:</strong> http://semanticscience.org/resource/SIO_001403</p>
+   <div class="info">
+   <span class="markdown">x is associated with y when x and y are logically or statistically related to one another.</span>
+   </div>
+   <dl class="definedBy">
+   <dt>
+       Is defined by
+      </dt>
+   <dd>
+   <a href="http://semanticscience.org/ontology/sio.owl">http://semanticscience.org/ontology/sio.owl</a>
+   </dd>
+   </dl>
+   <div class="description">
+   <dl>
+   <dt>
+        has domain
+       </dt>
+   <dd>
+   <a href="#http://purl.obolibrary.org/obo/SO_0001060" title="http://purl.obolibrary.org/obo/SO_0001060">sequence_variant</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+        has range
+       </dt>
+   <dd>
+   <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C16612" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C16612">Gene</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+        is inverse of
+       </dt>
+   <dd>
+   <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#R178" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#R178">Gene_Mutant_Encodes_Gene_Product_Sequence_Variation</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   </dl>
+   </div>
+   </div>
+   <div class="entity" id="http://semanticscience.org/resource/SIO_000061">
+   <h3>is located in<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+   <p><strong>IRI:</strong> http://semanticscience.org/resource/SIO_000061</p>
+   <dl class="definedBy">
+   <dt>
+       Is defined by
+      </dt>
+   <dd>
+   <a href="http://semanticscience.org/ontology/sio.owl">http://semanticscience.org/ontology/sio.owl</a>
+   </dd>
+   </dl>
+   <dl>
+   <dt>
+       Example
+      </dt>
+   <dd>
+   <pre>A parasite in the interior of a person's intestine is located in their intestinal lumen.</pre>
+   </dd>
+   </dl>
+   <div class="description">
+   <dl>
+   <dt>
+        has sub-properties
+       </dt>
+   <dd>
+   <a href="#has_reference_sequence" title="https://w3id.org/LUCIA/sem-lucia#has_reference_sequence">has_reference_sequence</a> <sup class="type-op" title="object property">op</sup>,
+   <a href="#http://semanticscience.org/resource/SIO_000068" title="http://semanticscience.org/resource/SIO_000068">is part of</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
+        has domain
+       </dt>
+   <dd>
+   <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C16612" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C16612">Gene</a> <sup class="type-c" title="class">c</sup> <span class="logic">
+      or</span> <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C7057" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C7057">Disease, Disorder or Finding</a> <sup class="type-c" title="class">c</sup> <span class="logic">
+      or</span> <a href="#http://purl.obolibrary.org/obo/SO_0001060" title="http://purl.obolibrary.org/obo/SO_0001060">sequence_variant</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#http://semanticscience.org/resource/SIO_001348" title="http://semanticscience.org/resource/SIO_001348">Fusion Gene Association</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#http://semanticscience.org/resource/SIO_001349" title="http://semanticscience.org/resource/SIO_001349">Chromosomal Rearrangement Association</a> <sup class="type-c" title="class">c</sup> <span class="logic">
+       
+   </dd>
+   <dt>
+        has range
+       </dt>
+   <dd>
+   <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C13355" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C13355">chromosome arm</a> <sup class="type-c" title="class">c</sup> <span class="logic">
+      or</span> <a href="#http://semanticscience.org/resource/SIO_000791" title="http://semanticscience.org/resource/SIO_000791">sequence start position</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#http://semanticscience.org/resource/SIO_000792" title="http://semanticscience.org/resource/SIO_000792">sequence end position</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#http://semanticscience.org/resource/SIO_000899" title="http://semanticscience.org/resource/SIO_000899">chromosome</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   
+   </dl>
+   </div>
+   </div>
+   <div class="entity" id="http://semanticscience.org/resource/SIO_000068">
+   <h3>is part of<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+   <p><strong>IRI:</strong> http://semanticscience.org/resource/SIO_000068</p>
+   <dl class="definedBy">
+   <dt>
+       Is defined by
+      </dt>
+   <dd>
+   <a href="http://semanticscience.org/ontology/sio.owl">http://semanticscience.org/ontology/sio.owl</a>
+   </dd>
+   </dl>
+   <div class="description">
+   <dl>
+   <dt>
+        has super-properties
+       </dt>
+   <dd>
+   <a href="#http://semanticscience.org/resource/SIO_000061" title="http://semanticscience.org/resource/SIO_000061">is located in</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
+        has domain
+       </dt>
+   <dd>
+   <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C12508" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C12508">Cell</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C16612" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C16612">Gene</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#http://purl.obolibrary.org/obo/NCIT_C13018" title="http://purl.obolibrary.org/obo/NCIT_C13018">Organ</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#http://vocabularies.wikipathways.org/wp#GeneProduct" title="http://vocabularies.wikipathways.org/wp#GeneProduct">GeneProduct</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#http://vocabularies.wikipathways.org/wp#Metabolite" title="http://vocabularies.wikipathways.org/wp#Metabolite">Metabolite</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#http://vocabularies.wikipathways.org/wp#Pathway" title="http://vocabularies.wikipathways.org/wp#Pathway">Pathway</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+        has range
+       </dt>
+   <dd>
+   <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C12508" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C12508">Cell</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#http://vocabularies.wikipathways.org/wp#Pathway" title="http://vocabularies.wikipathways.org/wp#Pathway">Pathway</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   </dl>
+   </div>
+   </div>
+   <div class="entity" id="http://semanticscience.org/resource/SIO_000205">
+   <h3>is represented by<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+   <p><strong>IRI:</strong> http://semanticscience.org/resource/SIO_000205</p>
+   <dl class="definedBy">
+   <dt>
+       Is defined by
+      </dt>
+   <dd>
+   <a href="http://semanticscience.org/ontology/sio.owl">http://semanticscience.org/ontology/sio.owl</a>
+   </dd>
+   </dl>
+   <div class="description">
+   <dl>
+   <dt>
+        has super-properties
+       </dt>
+   <dd>
+   <a href="#http://semanticscience.org/resource/SIO_000212" title="http://semanticscience.org/resource/SIO_000212">is referred to by</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
+        has domain
+       </dt>
+   <dd>
+   <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C16612" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C16612">Gene</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+        has range
+       </dt>
+   <dd>
+   <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C43568" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C43568">Gene Symbol</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+
+   </dl>
+   </div>
+   </div>
+   <div class="entity" id="http://www.bioassayontology.org/bao#BAO_0090007">
+   <h3>occurs in<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+   <p><strong>IRI:</strong> http://www.bioassayontology.org/bao#BAO_0090007</p>
+   <div class="description">
+   <dl>
+   <dt>
+        has domain
+       </dt>
+   <dd>
+   <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C7057" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C7057">Disease, Disorder or Finding</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+        has range
+       </dt>
+   <dd>
+   <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C14250" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C14250">Organism</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   </dl>
+   </div>
+   </div>
+   <div class="entity" id="http://semanticscience.org/resource/SIO_000628">
+   <h3>refers to<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+   <p><strong>IRI:</strong> http://semanticscience.org/resource/SIO_000628</p>
+   <dl class="definedBy">
+   <dt>
+       Is defined by
+      </dt>
+   <dd>
+   <a href="http://semanticscience.org/ontology/sio.owl">http://semanticscience.org/ontology/sio.owl</a>
+   </dd>
+   </dl>
+   <div class="description">
+   <dl>
+   <dt>
+        has sub-properties
+       </dt>
+   <dd>
+   <a href="#http://semanticscience.org/resource/SIO_000210" title="http://semanticscience.org/resource/SIO_000210">represents</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
+        has domain
+       </dt>
+   <dd>
+   <a href="#http://bio2rdf.org/ctd_vocabulary:Chemical-Disease-Association" title="http://bio2rdf.org/ctd_vocabulary:Chemical-Disease-Association">A CTD association between a chemical and a disease [ctd_vocabulary:Chemical-Disease-Association]</a> <sup class="type-c" title="class">c</sup> <span class="logic">
+      or</span> <a href="#http://semanticscience.org/resource/SIO_000897" title="http://semanticscience.org/resource/SIO_000897">association</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#http://semanticscience.org/resource/SIO_000983" title="http://semanticscience.org/resource/SIO_000983">gene-disease association</a> <sup class="type-c" title="class">c</sup> <span class="logic">
+      or</span> <a href="#PathwayDiseaseAssociation" title="https://w3id.org/LUCIA/sem-lucia#PathwayDiseaseAssociation">Pathway Disease Association</a> <sup class="type-c" title="class">c</sup> <span class="logic">
+         or</span> <a href="#http://semanticscience.org/resource/SIO_000897" title="http://semanticscience.org/resource/SIO_000897">association</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+        has range
+       </dt>
+   <dd>
+     <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C16612" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C16612">Gene</a> <sup class="type-c" title="class">c</sup> <span class="logic">
+     or</span> <a href="#http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C7057" title="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C7057">Disease, Disorder or Finding</a> <sup class="type-c" title="class">c</sup> <span class="logic">
+     or</span> <a href="#http://purl.obolibrary.org/obo/GENO_0000476" title="http://purl.obolibrary.org/obo/GENO_0000476">variant</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#http://vocabularies.wikipathways.org/wp#Pathway" title="http://vocabularies.wikipathways.org/wp#Pathway">Pathway</a> <sup class="type-c" title="class">c</sup> <span class="logic">
+   </dd>
+   <dt>
+        is inverse of
+       </dt>
+   <dd>
+   <a href="#http://semanticscience.org/resource/SIO_000212" title="http://semanticscience.org/resource/SIO_000212">is referred to by</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   </dl>
+   </div>
+   </div>
+</div><div xmlns:widoco="https://w3id.org/widoco/vocab#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="dataproperties">
+ <h3 id="dataproperties-headline" class="list">Data Properties</h3>
+ <ul class="hlist">
+  <li><a href="#consequence" title="https://w3id.org/LUCIA/sem-lucia#consequence">Consequence</a></li>
+  <li><a href="#dbsnp_id" title="https://w3id.org/LUCIA/sem-lucia#dbsnp_id">dbsnp_id</a></li>
+  <li><a href="#http://semanticscience.org/resource/SIO_000300" title="http://semanticscience.org/resource/SIO_000300">has value</a></li>
+ </ul>
+ 
+ <div class="entity" id="consequence">
+  <h3>Consequence<sup class="type-dp" title="data property">dp</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/LUCIA/sem-lucia#consequence</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#http://purl.obolibrary.org/obo/SO_0001060" title="http://purl.obolibrary.org/obo/SO_0001060">sequence_variant</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="http://www.w3.org/2001/XMLSchema#string" target="_blank" title="http://www.w3.org/2001/XMLSchema#string">string</a>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="dbsnp_id">
+  <h3>dbsnp_id<sup class="type-dp" title="data property">dp</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/LUCIA/sem-lucia#dbsnp_id</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#http://purl.obolibrary.org/obo/SO_0001060" title="http://purl.obolibrary.org/obo/SO_0001060">sequence_variant</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="http://www.w3.org/2001/XMLSchema#string" target="_blank" title="http://www.w3.org/2001/XMLSchema#string">string</a>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="http://semanticscience.org/resource/SIO_000300">
+  <h3>has value<sup class="type-dp" title="data property">dp</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://semanticscience.org/resource/SIO_000300</p>
+  <dl class="definedBy">
+   <dt>
+    Is defined by
+   </dt>
+   <dd>
+    <a href="http://semanticscience.org/ontology/sio.owl">http://semanticscience.org/ontology/sio.owl</a>
+   </dd>
+  </dl>
+  <div class="description">
+   <p><strong>has characteristics: </strong> functional</p>
+   <dl>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="http://www.w3.org/2001/XMLSchema#double" target="_blank" title="http://www.w3.org/2001/XMLSchema#double">double</a> <span class="logic">or</span> <a href="http://www.w3.org/2001/XMLSchema#integer" target="_blank" title="http://www.w3.org/2001/XMLSchema#integer">integer</a> <span class="logic">or</span> <a href="http://www.w3.org/2001/XMLSchema#string" target="_blank" title="http://www.w3.org/2001/XMLSchema#string">string</a>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ 
+</div><div id="legend">
+<h2>Legend <span class="backlink"> back to <a href="#toc">ToC</a></span></h2>
+<div   class="entity">
+<sup class="type-c" title="Classes">c</sup>: Classes <br/>
+<sup class="type-op" title="Object Properties">op</sup>: Object Properties <br/>
+<sup class="type-dp" title="Data Properties">dp</sup>: Data Properties <br/>
+</div>
+</div>
+</div>
+    
+
+<!--REFERENCES SECTION-->
+  <div id="references">
+<h2 id="ref" class="list">References <span class="backlink"> back to <a href="#toc">ToC</a></span></h2>
+<span class="markdown">
+Add your references here. It is recommended to have them as a list.</span>
+
+</div>
+<div id="acknowledgments">
+<h2 id="ack" class="list">Acknowledgments <span class="backlink"> back to <a href="#toc">ToC</a></span></h2>
+<p>
+The authors would like to thank <a href="http://www.essepuntato.it/">Silvio Peroni</a> for developing <a href="http://www.essepuntato.it/lode">LODE</a>, a Live OWL Documentation Environment, which is used for representing the Cross Referencing Section of this document and <a href="https://w3id.org/people/dgarijo">Daniel Garijo</a> for developing <a href="https://github.com/dgarijo/Widoco">Widoco</a>, the program used to create the template used in this documentation.</p>
+</div>
+
+
+</div>
+</body>
+</html>

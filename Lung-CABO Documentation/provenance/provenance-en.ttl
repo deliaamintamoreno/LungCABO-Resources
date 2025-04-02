@@ -1,0 +1,19 @@
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix dc: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix : <> .
+<..\index-en.html> a prov:Entity;
+	 dc:title "SEM-LUCIA";
+	 prov:wasAttributedTo :agent0;
+	 prov:wasAttributedTo :agent1;
+	 prov:wasAttributedTo <https://github.com/dgarijo/Widoco/>,<http://www.essepuntato.it/lode/>;
+	 prov:wasGeneratedAt "2025-02-14";
+.
+:agent0 a prov:Agent; foaf:name "MEDAL: https://medal.ctb.upm.es/
+OEG: https://oeg.fi.upm.es/".
+:agent1 a prov:Agent; foaf:name "Delia Aminta Moreno Perdomo (MEDAL)
+Paloma Tejera Nevado (MEDAL)
+Guillermo Antonio Vigueras Gonzalez (MEDAL)
+Antonio Jesus Díaz Honrubia (MEDAL)
+Lucía Prieto Santamaría (MEDAL)
+Alejandro Rodríguez González (MEDAL)".
