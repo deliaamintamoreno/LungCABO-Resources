@@ -30,7 +30,7 @@ The Lung-CABO ontology model provides an overview of the core **Classes**, **Dat
 
 ## Ontology (OWL)
 
-The OWL-encoded version of the ontology can be found [here](LungCABO-Resources/Lung-CABO Documentation/ontology.owl).
+The OWL-encoded version of the ontology can be found [here](LungCABO-Resources/Lung-CABO%20Documentation/ontology.owl).
 
 ## Documentation
 
