@@ -18,7 +18,7 @@ This ontology has been developed following the guidelines of the [LOT methodolog
 
 The ontology requirements were derived from the domain needs of integrating and querying multi-source biological information in the context of lung cancer. These requirements are validated through **Competency Questions** that test the ability of the ontology to answer relevant biomedical queries.
 
-The requirements are available [here](Requirements/Requirements-LungCABO.xlsx), and can also be visualized in HTML format [here](https://deliaamintamoreno.github.io/LungCABO-Resources/Requirements/The requirements are available [here](Requirements/Requirements-LungCABO.xlsx), and can also be visualized in HTML format [here](https://deliaamintamoreno.github.io/LungCABO-Resources/requirements-LungCABO.html).
+The requirements are available [here](Requirements/Requirements-LungCABO.xlsx), and can also be visualized in HTML format [here] The requirements are available [here](Requirements/Requirements-LungCABO.xlsx), and can also be visualized in HTML format [here](https://deliaamintamoreno.github.io/LungCABO-Resources/requirements-LungCABO.html).
 
 ## Ontology Model
 
