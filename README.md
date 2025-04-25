@@ -36,7 +36,7 @@ The OWL-encoded version of the ontology can be found [here](Lung-CABO%20Document
 
 The Lung-CABO ontology documentation was generated using [WIDOCO](https://github.com/oeg-upm/Widoco).
 
-The complete documentation is available [here](Lung-CABO Documentation/index-en.html), and includes:
+The complete documentation is available [here](Lung-CABO%20Documentation/index-en.html), and includes:
 - **Provenance**: Metadata on the creation and evolution of the ontology.
 - **Resources**: Lists of reused vocabularies and instances.
 - **Multiple formats**: RDF/XML, Turtle, JSON-LD.
