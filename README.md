@@ -25,7 +25,7 @@ The requirements are available [here](Requirements/Requirements-LungCABO.xlsx), 
 The Lung-CABO ontology model provides an overview of the core **Classes**, **Data Properties**, and **Object Properties**, designed using [Chowlk notation](https://chowlk.linkeddata.es/).
 
 - Full ontology diagram:  
-  ![diagram](diagrams/LungCABO_ontology.png)
+  ![diagram](diagrams/diagrams/LUCIAOntology-Página-1.drawio.png)
 - You can explore individual diagrams [here](diagrams/).
 
 ## Ontology (OWL)
